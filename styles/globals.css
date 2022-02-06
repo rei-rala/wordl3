@@ -1,9 +1,49 @@
+:root body {
+  --theme-color: hsl(120, 100%, 100%);
+  --theme-color-secondary: hsl(0, 0%, 98%);
+
+  --color-font: hsl(212, 14%, 25%);
+  --color-success: hsl(130, 56%, 40%);
+  --color-alert: hsl(0, 100%, 40%);
+  --color-warn: hsl(50, 100%, 40%);
+  --color-sky: hsl(200, 100%, 50%);
+
+  --border-color: hsla(0, 0%, 92%, 0.75);
+  --color-hover: hsla(0, 0%, 0%, 0.15);
+
+  --def-padding: 0.75rem;
+  --def-border-radius: 0.5rem;
+
+  --navbar-height: 3.5rem;
+  --footer-height: calc(var(--navbar-height) / 1.5);
+}
+
+:root body.theme-dark {
+  --theme-color: rgb(0, 0, 0);
+  --theme-color-secondary: hsl(212, 14%, 25%);
+  --color-hover: hsla(0, 0%, 100%, 0.25);
+
+  --color-font: hsl(0, 0%, 98%);
+  --color-success: hsl(130, 56%, 71%);
+  --color-alert: hsl(0, 100%, 71%);
+  --color-warn: hsl(50, 100%, 71%);
+  --color-sky: hsl(200, 100%, 81%);
+}
+
 html,
 body {
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+body {
+  display: grid;
+  place-items: center;
+
+  background-color: var(--theme-color);
+  color: var(--font-color);
 }
 
 a {
