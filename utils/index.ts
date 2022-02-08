@@ -43,3 +43,19 @@ export const getCoincidences = (strArray: string[] = [], target: string) => {
     return coincidences;
   });
 };
+
+export const validateString = async (guess: string, length: number, regex: RegExp) => {
+  let error: string | undefined;
+
+  const lengthError = `Completar ${length} letras`;
+  const invalidCharsError = `Solo se permiten letras`;
+
+  error =
+    guess.length !== length
+      ? lengthError
+      : regex.test(guess)
+        ? invalidCharsError
+        : undefined;
+
+  return { error, guess };
+};

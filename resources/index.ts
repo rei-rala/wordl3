@@ -1,13 +1,14 @@
 import { randomArrayItem } from "../utils";
 
 export const DICTIONARY: { [key: string]: string } = {
-  'PERRO': 'Perruno plural bro',
-  'GATOS': 'Gatuno plural bro',
+  'PERRO': 'Perruno plural',
+  'GATOS': 'Gatuno plural',
+  'PATOS': 'Patuno plural',
 }
 
-export const WORDS = Object.keys(DICTIONARY)
+const WORDS = Object.keys(DICTIONARY)
 
-export const MAX_TRIES = process.env.MAX_TRIES && !isNaN(+process.env.MAX_TRIES) ? parseInt(process.env.MAX_TRIES) : 6
+const MAX_TRIES = process.env.MAX_TRIES && !isNaN(+process.env.MAX_TRIES) ? parseInt(process.env.MAX_TRIES) : 6
 
 export const API_CONFIG = {
   api: {
@@ -25,3 +26,10 @@ export const game = { word: selected.word, meaning: selected.meaning, maxTries: 
 export const userGame = { wordLength: game.word.length, maxTries: game.maxTries }
 
 console.table({ ...game, ...userGame })
+
+
+export const findWordInDictionary = (word: string) => {
+  const meaning = DICTIONARY[word]
+
+  return meaning ? ({ word, meaning: meaning }) : undefined
+}

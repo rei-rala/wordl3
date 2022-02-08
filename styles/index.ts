@@ -1,26 +1,28 @@
-import { StyleByCoincidence } from "../types";
-
-export const colors = {
-  success: "var(--color-success)",
-  warn: "var(--color-warn)",
-  alert: "var(--color-alert)",
-  sky: "var(--color-sky)",
-  theme: "var(--theme-color)",
-  font: "var(--color-font)",
-  gray: "var(--border-color)",
+enum COLORS {
+  THEME = "var(--theme-color)",
+  SUCCESS = "var(--color-success)",
+  WARN = "var(--color-warn)",
+  ALERT = "var(--color-alert)",
+  SKY = "var(--color-sky)",
+  FONT = "var(--color-font)",
+  BORDER = "var(--color-border)",
+  DISABLED = "var(--color-disabled)",
 }
 
-export const cStyle: StyleByCoincidence = {
-  bkgColor: {
-    FULL: colors.success,
-    PARTIAL: colors.warn,
-    NONE: colors.gray,
-    EMPTY: colors.theme,
-  },
-  color: {
-    FULL: colors.theme,
-    PARTIAL: colors.theme,
-    NONE: colors.font,
-    EMPTY: colors.font,
-  },
-};
+enum SIZES {
+  LETTER_SQUARE = "var(--size-letter-square)",
+  LETTER = "var(--size-letter)",
+}
+
+enum ANIMATIONS {
+  LETTER_POP = "var(--anim-letter-pop)",
+  DURATION_MS = "var(--anim-duration)",
+}
+
+const THEME = {
+  COLORS: COLORS,
+  SIZES: SIZES,
+  ANIMATIONS: ANIMATIONS,
+}
+
+export default THEME
