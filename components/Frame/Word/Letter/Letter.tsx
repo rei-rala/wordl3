@@ -2,7 +2,6 @@ import React from "react";
 import { ILetterComponentProps, StyleByCoincidence } from "../../../../types";
 import THEME from "../../../../styles";
 
-
 const cStyle: StyleByCoincidence = {
   backgroundColor: {
     FULL: THEME.COLORS.SUCCESS,
@@ -18,8 +17,13 @@ const cStyle: StyleByCoincidence = {
   },
 };
 
-
-const Letter: React.FC<ILetterComponentProps> = ({ letter, isLastLetter, coincidenceState }) => {
+const Letter: React.FC<ILetterComponentProps> = ({
+  letter,
+  isLastGuess,
+  letterIndex,
+  isLastLetter,
+  coincidenceState,
+}) => {
   return (
     <div>
       <span>{letter}</span>
@@ -31,15 +35,23 @@ const Letter: React.FC<ILetterComponentProps> = ({ letter, isLastLetter, coincid
           border-radius: 4px;
           width: ${THEME.SIZES.LETTER_SQUARE};
           height: ${THEME.SIZES.LETTER_SQUARE};
+          min-width: ${THEME.SIZES.LETTER_SQUARE_MIN};
+          min-height: ${THEME.SIZES.LETTER_SQUARE_MIN};
           font-size: ${THEME.SIZES.LETTER};
-          margin: 0.3em 0.05em;
+          margin: 0.075em 0.035em;
 
-          background-color: ${cStyle.backgroundColor[coincidenceState] ?? cStyle.backgroundColor.EMPTY};
+          background-color: ${cStyle.backgroundColor[coincidenceState] ??
+        cStyle.backgroundColor.EMPTY};
           color: ${cStyle.color[coincidenceState] ?? cStyle.color.EMPTY};
-          ${isLastLetter && `animation: ${THEME.ANIMATIONS.LETTER_POP};`}
 
-        }`}</style>
-    </div >
+          ${isLastGuess
+          ? `animation: ${THEME.ANIMATIONS.FLIP}; animation-delay: ${letterIndex * 125}ms;`
+          : isLastLetter
+            ? `animation: ${THEME.ANIMATIONS.LETTER_POP};`
+            : ""}
+        }
+      `}</style>
+    </div>
   );
 };
 

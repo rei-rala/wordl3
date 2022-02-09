@@ -25,9 +25,6 @@ const selected = { word: randomWord ?? 'err=(', meaning: DICTIONARY[randomWord] 
 export const game = { word: selected.word, meaning: selected.meaning, maxTries: MAX_TRIES };
 export const userGame = { wordLength: game.word.length, maxTries: game.maxTries }
 
-console.table({ ...game, ...userGame })
-
-
 export const findWordInDictionary = (word: string) => {
   const meaning = DICTIONARY[word]
 

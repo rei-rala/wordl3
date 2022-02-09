@@ -1,6 +1,7 @@
 :root body {
   --theme-color: hsl(120, 100%, 100%);
-  --theme-color-secondary: hsl(0, 0%, 98%);
+  --theme-color-secondary: hsl(120, 100%, 100%, 0.5);
+  --theme-color-tertiary: hsl(120, 0%, 50%, 0.5);
 
   --color-font: hsl(212, 14%, 25%);
   --color-success: hsl(130, 56%, 40%);
@@ -9,7 +10,7 @@
   --color-sky: hsl(200, 100%, 50%);
   --color-disabled: hsl(0, 0%, 65%);
 
-  --color-border: hsla(0, 0%, 100%, 0.5);
+  --color-border: hsla(0, 0%, 0%, 0.35);
   --color-hover: hsla(0, 0%, 0%, 0.75);
 
   --def-padding: 0.75rem;
@@ -17,17 +18,34 @@
 
   --navbar-height: 3.5rem;
   --footer-height: calc(var(--navbar-height) / 1.5);
-  --size-letter-square: 4rem;
-  --size-letter: 2.5rem;
+  --size-letter-square: 3.5rem;
+  --size-letter-square-min: calc(var(--size-letter-square) / 1.75);
+  --size-letter: calc(var(--size-letter-square) / 1.5);
 
-  --anim-duration: 1000ms;
+  --anim-duration: 500ms;
   --anim-letter-pop: var(--anim-duration) 1 pop;
+  --anim-fadeInBackground: var(--anim-duration) 1 fadeInBackground;
+  --anim-pulse: calc(var(--anim-duration) * 2) infinite pulse ease-in-out;
+  --anim-flip: calc(var(--anim-duration) * 1.5) 1 flip;
+
+  --GLOBAL-MAX-WIDTH: 550px;
+
+  --COMP-GRADIENT-BKG: linear-gradient(
+    to right,
+    transparent,
+    var(--theme-color-tertiary),
+    var(--theme-color-tertiary),
+    var(--theme-color-tertiary),
+    transparent
+  );
+  --navbar-height: 1.5rem;
 }
 
 :root body.theme-dark {
-  --theme-color: rgb(0, 0, 0);
-  --theme-color-secondary: hsl(212, 14%, 25%);
+  --theme-color: hsl(240, 3%, 7%);
+  --theme-color-secondary: hsla(240, 3%, 7%, 0.5);
 
+  --color-border: hsla(0, 0%, 100%, 0.35);
   --color-hover: hsla(0, 0%, 100%, 0.75);
   --color-font: hsl(0, 0%, 98%);
   --color-success: hsl(130, 56%, 71%);
@@ -51,10 +69,19 @@ body {
 
   background-color: var(--theme-color);
   color: var(--font-color);
+
+  text-align: center;
+  overflow: hidden;
+
+  /* prevents user selection */
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 body * {
-  transition: background var(--anim-duration), color var(--anim-duration);
+  transition: background var(--anim-duration);
 }
 
 a {
@@ -76,9 +103,10 @@ h4,
 h5,
 h6,
 p,
-figure,
-picture {
+dialog,
+fieldset {
   margin: 0;
+  padding: 0;
 }
 
 @keyframes pop {
@@ -87,5 +115,35 @@ picture {
   }
   100% {
     transform: scale(1);
+  }
+}
+
+@keyframes fadeInBackground {
+  0% {
+    background-color: transparent;
+  }
+  100% {
+    background-color: var(--theme-color-secondary);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes flip {
+  0% {
+    transform: rotateX(0deg);
+  }
+  100% {
+    transform: rotateX(360deg);
   }
 }

@@ -50,6 +50,7 @@ export interface IGuessComponentProps {
 }
 
 export interface IWordComponentProps {
+  isLastGuess: boolean;
   isCurrentGuess: boolean;
   currentGuessIndex: number;
   word: string;
@@ -59,7 +60,9 @@ export interface IWordComponentProps {
 
 export interface ILetterComponentProps {
   letter: string;
+  letterIndex: number;
   coincidenceState: keyof typeof States;
+  isLastGuess: boolean;
   isGuessing: boolean;
   isLastLetter: boolean;
 }

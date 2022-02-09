@@ -7,6 +7,7 @@ import { validateString } from "../utils";
 import Frame from "./Frame/Frame";
 import Indicators from "./Indicators/Indicators";
 
+
 const Game = () => {
   const [maxTries, setMaxTries] = useState(6);
   const [wordLength, setWordLength] = useState(0);
@@ -15,45 +16,38 @@ const Game = () => {
   const [currentGuess, setCurrentGuess] = useState("");
 
   const [isLoading, setIsLoading] = useState(false);
+
+  const [gameOver, setGameOver] = useState<GameOver>({ state: false });
   const [error, setError] = useState({
     foundError: false,
-    message: "Unexpected error",
+    message: "Unexpected error"
   });
   const [invalidGuess, setInvalidGuess] = useState<string | undefined>(
     undefined
   );
 
-  const [gameOver, setGameOver] = useState<GameOver>({
-    state: false,
-    message: "Unexpected Game Over Condition",
-  });
-
-
   const submitGuesses = async (guesses: string | string[]) => {
     return new Promise((res) => res(setIsLoading(true)))
       .then(() => postGuess(guesses))
       .catch((err) => setError(err))
-      .then(
-        ({
-          wordLength,
-          maxTries,
-          coincidences,
-          guesses,
-          definition
-        }) => {
-          setCurrentGuess("");
-          setMaxTries(maxTries);
-          setGuesses(guesses);
-          setCoincidences(coincidences);
-          setWordLength(wordLength);
+      .then(({ wordLength, maxTries, coincidences, guesses, definition }) => {
+        setCurrentGuess("");
+        setMaxTries(maxTries);
+        setGuesses(guesses);
+        setCoincidences(coincidences);
+        setWordLength(wordLength);
 
-          localStorage.setItem("guesses", JSON.stringify(guesses));
-          typeof definition.win === 'boolean' && setGameOver({ state: true, message: definition.win ? `Has ganado! 🎉` : "No has podido ganar esta vez! 😔", definition })
-        }
-      )
+        localStorage.setItem("guesses", JSON.stringify(guesses));
+        typeof definition.win === "boolean" &&
+          setGameOver({
+            state: true,
+            message: definition.win ? `Has ganado! 🎉` : "No has podido ganar esta vez! 😔",
+            definition,
+          });
+      })
       .catch((err) =>
         err.lastGuessIsInvalid ? setInvalidGuess(err.lastGuess) : setError(err)
-      )
+      );
   };
 
   const preSubmitSteps = async (guess: string) => {
@@ -70,7 +64,9 @@ const Game = () => {
         if (found) {
           return submitGuesses([...guesses, guess]);
         }
-        throw new Error(`La palabra ${guess} no se encuentra en el diccionario. 🤔`);
+        throw new Error(
+          `La palabra ${guess} no se encuentra en el diccionario. 🤔`
+        );
       })
       .catch((err) => {
         setInvalidGuess(err.message);
@@ -88,8 +84,7 @@ const Game = () => {
       if (KEY === "BACKSPACE") {
         setCurrentGuess(currentGuess.slice(0, currentGuess.length - 1));
       } else if (KEY === "ENTER") {
-        preSubmitSteps(currentGuess)
-          .catch(err => setError(err));
+        preSubmitSteps(currentGuess).catch((err) => setError(err));
       } else {
         setCurrentGuess((currentGuess + KEY).slice(0, wordLength));
       }
@@ -119,7 +114,6 @@ const Game = () => {
       setGameOver({ state: true, message: "No has podido ganar esta vez! 😔" });
   }, [maxTries, guesses]);
 
-
   useEffect(() => {
     !isLoading && window.addEventListener("keydown", handleKey);
     return () => {
@@ -138,7 +132,11 @@ const Game = () => {
         guesses={guesses}
         coincidences={coincidences}
       />
-      <Indicators gameOver={gameOver} error={error} invalidGuess={invalidGuess} />
+      <Indicators
+        gameOver={gameOver}
+        error={error}
+        invalidGuess={invalidGuess}
+      />
     </>
   );
 };

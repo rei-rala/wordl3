@@ -1,11 +1,10 @@
 import React from "react";
 import type { NextPage } from "next";
 import Head from "next/head";
-import useDarkTheme from "../hooks/useDarkTheme";
-import Game from "../components/Game";
+
+import { Navbar, Game, Footer } from "../components";
 
 const Home: NextPage = () => {
-  const { darkTheme, toggleDarkTheme } = useDarkTheme()
 
   return (
     <>
@@ -15,9 +14,9 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <button onClick={toggleDarkTheme}>{darkTheme ? 'test light' : 'test dark'}</button>
-
+      <Navbar />
       <Game />
+      <Footer />
     </>
   );
 };
