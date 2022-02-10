@@ -39,7 +39,7 @@ const Indicators: React.FC<IIndicatorsComponentProps> = ({
             <div>
               <hr />
             </div>
-            <i> Clickea en la pantalla para cerrar </i>
+            <i> Toca en la pantalla para cerrar </i>
           </>
         }
       </fieldset>
@@ -62,7 +62,7 @@ const Indicators: React.FC<IIndicatorsComponentProps> = ({
           border: none;
           background: ${THEME.COLORS.THEME_SECONDARY};
           color: ${THEME.COLORS.FONT};
-          animation: ${divOpen && THEME.ANIMATIONS.FADE_IN_BACKGROUND};
+          animation: ${divOpen && THEME.ANIMATIONS.FADE_IN};
           display: ${divOpen ? '' : 'none'};
 
           z-index: 10;
@@ -103,22 +103,6 @@ const Indicators: React.FC<IIndicatorsComponentProps> = ({
         section a:hover {
           text-decoration: underline;
         }
-
-        section button {
-          position: relative;
-
-          display: flex;
-          align-items: center;
-
-          border-radius: 5px;
-          cursor: pointer;
-        }
-
-        section button:hover {
-          color: ${THEME.COLORS.ALERT};
-          border-color: ${THEME.COLORS.ALERT};
-        }
-
       `}</style>
     </ section >
   );

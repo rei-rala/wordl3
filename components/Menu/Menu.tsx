@@ -27,7 +27,6 @@ const Menu: React.FC = () => {
           border: none;
 
           color: ${darkTheme ? THEME.COLORS.WARN : THEME.COLORS.SKY};
-          cursor: pointer;
         }
 
         button:hover {

@@ -22,14 +22,9 @@ const Footer: React.FC = () => {
       </Link>
       <style jsx>{`
         footer {
-          position: fixed;
-          bottom: 0;
-          left: 50%;
-          transform: translateX(-50%);
-
-          display: flex;
+          display:flex;
           justify-content: center;
-          align-items: center;
+
           gap: 0.5rem;
 
           width: 100%;

@@ -16,16 +16,10 @@ const Navbar: React.FC = () => {
       <Menu />
       <style jsx>{`
         div {
-          position: fixed;
-          top: 0;
-          left: 50%;
-          transform: translateX(-50%);
-
           display: flex;
           justify-content: space-evenly;
           align-items: center;
           width: 100vw;
-          height: ${THEME.SIZES.NAVBAR_HEIGHT};
 
           max-width: ${THEME.SIZES.GLOBAL_MAX_WIDTH};
           background: ${THEME.COLORS.GRADIENT_BKG};

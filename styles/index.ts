@@ -1,6 +1,7 @@
 enum COLORS {
   THEME = "var(--theme-color)",
   THEME_SECONDARY = "var(--theme-color-secondary)",
+  THEME_TERTIARY = "var(--theme-color-tertiary)",
   SUCCESS = "var(--color-success)",
   WARN = "var(--color-warn)",
   ALERT = "var(--color-alert)",
@@ -12,25 +13,29 @@ enum COLORS {
 }
 
 enum SIZES {
-  LETTER_SQUARE_MIN = "var(--size-letter-square-min)",
   LETTER_SQUARE = "var(--size-letter-square)",
-  LETTER = "var(--size-letter)",
-  NAVBAR_HEIGHT = "var(--navbar-height)",
+  KEYBOARD_KEY = "var(--size-keyboard-key)",
   GLOBAL_MAX_WIDTH = "var(--GLOBAL-MAX-WIDTH)",
+
+  FRAME_HEIGHT = "var(--frame-height)",
+  KEYBOARD_HEIGHT = "var(--keyboard-height)",
+  FOOTER_HEIGHT = "var(--footer-height)",
 }
 
 enum ANIMATIONS {
   LETTER_POP = "var(--anim-letter-pop)",
-  FADE_IN_BACKGROUND = "var(--anim-fadeInBackground)",
+  FADE_IN = "var(--anim-fadeIn)",
   FLIP = "var(--anim-flip)",
   PULSE = "var(--anim-pulse)",
   DURATION_MS = "var(--anim-duration)",
+  DURATION_MS_INT = 500
 }
 
 const THEME = {
-  COLORS: COLORS,
-  SIZES: SIZES,
-  ANIMATIONS: ANIMATIONS,
+  COLORS,
+  SIZES,
+  ANIMATIONS,
 }
+
 
 export default THEME

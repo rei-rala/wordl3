@@ -1,5 +1,11 @@
 import { randomArrayItem } from "../utils";
 
+export const KEYBOARD_ROWS = [
+  "qwertyuiop".toUpperCase().split(''),
+  "asdfghjklñ".toUpperCase().split(''),
+  ["ENTER", ..."zxcvbnm".toUpperCase().split(''), "BACKSPACE"],
+]
+
 export const DICTIONARY: { [key: string]: string } = {
   'PERRO': 'Perruno plural',
   'GATOS': 'Gatuno plural',

@@ -23,6 +23,7 @@ const Letter: React.FC<ILetterComponentProps> = ({
   letterIndex,
   isLastLetter,
   coincidenceState,
+  isGuessing
 }) => {
   return (
     <div>
@@ -31,25 +32,23 @@ const Letter: React.FC<ILetterComponentProps> = ({
         div {
           display: grid;
           place-items: center;
-          border: 2px outset ${THEME.COLORS.BORDER};
-          border-radius: 4px;
+
+          color: ${isGuessing && letter !== ' ' ? cStyle.color.NONE : cStyle.color[coincidenceState] ?? cStyle.color.EMPTY};
+          
+          border: 3px outset ${THEME.COLORS.BORDER};
+          border-radius: 0.5rem;
+          background-color: ${isGuessing && letter !== ' ' ? cStyle.backgroundColor.NONE : cStyle.backgroundColor[coincidenceState] ?? cStyle.backgroundColor.EMPTY};
           width: ${THEME.SIZES.LETTER_SQUARE};
           height: ${THEME.SIZES.LETTER_SQUARE};
-          min-width: ${THEME.SIZES.LETTER_SQUARE_MIN};
-          min-height: ${THEME.SIZES.LETTER_SQUARE_MIN};
-          font-size: ${THEME.SIZES.LETTER};
-          margin: 0.075em 0.035em;
+          max-width: ${THEME.SIZES.LETTER_SQUARE};
 
-          background-color: ${cStyle.backgroundColor[coincidenceState] ??
-        cStyle.backgroundColor.EMPTY};
-          color: ${cStyle.color[coincidenceState] ?? cStyle.color.EMPTY};
-
-          ${isLastGuess
+        ${isLastGuess
           ? `animation: ${THEME.ANIMATIONS.FLIP}; animation-delay: ${letterIndex * 125}ms;`
           : isLastLetter
             ? `animation: ${THEME.ANIMATIONS.LETTER_POP};`
             : ""}
         }
+
       `}</style>
     </div>
   );

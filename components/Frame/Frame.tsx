@@ -8,7 +8,7 @@ const Frame: React.FC<IFrameComponentProps> = ({ maxTries, wordLength, guesses, 
 
 
   return (
-    <section>
+    <main>
       {
         maxTries > 0 &&
         Array(maxTries)
@@ -30,21 +30,28 @@ const Frame: React.FC<IFrameComponentProps> = ({ maxTries, wordLength, guesses, 
           />)
       }
       <style jsx>{`
-        section {
+        main {
           display: flex;
-          flex-direction: column;
+          flex-flow: column nowrap;
+          justify-content: space-around;
+          align-items: center;
+
+          font-size: 2rem;
           
-          width: 100vw;
-          height: 100%;
-          min-height: 100vh;
-          padding-top: 0.75rem;
-          
+          height: ${THEME.SIZES.FRAME_HEIGHT};
+          width: 100%;
+          max-width: ${THEME.SIZES.GLOBAL_MAX_WIDTH};
           background-color: ${THEME.COLORS.THEME};
-          color: ${THEME.COLORS.FONT};
-          padding: calc(${THEME.SIZES.NAVBAR_HEIGHT} + 0.35rem) ;
         }
+        
+        @media screen and (max-width: 550px) {
+          main {
+            width: 100%;
+          }
+        }
+        
       `}</style>
-    </section>
+    </main>
   );
 }
 

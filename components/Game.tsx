@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from "react";
+import { Keyboard, Loading } from ".";
 import { findWordInDictionary } from "../resources";
 import { postGuess } from "../services";
 
 import { Coincidence, GameOver } from "../types";
 import { validateString } from "../utils";
+
 import Frame from "./Frame/Frame";
 import Indicators from "./Indicators/Indicators";
 
+import THEME from "../styles";
 
-const Game = () => {
+const Game: React.FC = () => {
   const [maxTries, setMaxTries] = useState(6);
   const [wordLength, setWordLength] = useState(0);
   const [coincidences, setCoincidences] = useState<Coincidence[]>([]);
@@ -74,21 +77,24 @@ const Game = () => {
       .finally(() => setIsLoading(false));
   };
 
-  const handleKey = (event: KeyboardEvent) => {
+  const updateGuess = (keyValue: string) => {
     if (gameOver.state)
       return setError({ foundError: true, message: "Juego terminado!" });
 
-    const KEY = event.key.toUpperCase();
-
-    if (/^[a-zA-Z]$/i.test(KEY) || ["BACKSPACE", "ENTER"].includes(KEY)) {
-      if (KEY === "BACKSPACE") {
+    if (/^[a-zA-Z]$/i.test(keyValue) || ["BACKSPACE", "ENTER"].includes(keyValue)) {
+      if (keyValue === "BACKSPACE") {
         setCurrentGuess(currentGuess.slice(0, currentGuess.length - 1));
-      } else if (KEY === "ENTER") {
+      } else if (keyValue === "ENTER") {
         preSubmitSteps(currentGuess).catch((err) => setError(err));
       } else {
-        setCurrentGuess((currentGuess + KEY).slice(0, wordLength));
+        setCurrentGuess((currentGuess + keyValue).slice(0, wordLength));
       }
     }
+  }
+
+  const handleKey = (event: KeyboardEvent) => {
+    const KEY = event.key.toUpperCase();
+    updateGuess(KEY)
   };
 
   useEffect(() => {
@@ -102,7 +108,7 @@ const Game = () => {
       invalidGuess &&
       setTimeout(() => {
         setInvalidGuess(undefined);
-      }, 2000);
+      }, THEME.ANIMATIONS.DURATION_MS_INT);
 
     return () => {
       invalidGuessTimeout && clearTimeout(invalidGuessTimeout);
@@ -121,9 +127,7 @@ const Game = () => {
     };
   });
 
-  return isLoading ? (
-    <div>Loading...</div>
-  ) : (
+  return (
     <>
       <Frame
         currentGuess={currentGuess}
@@ -137,6 +141,12 @@ const Game = () => {
         error={error}
         invalidGuess={invalidGuess}
       />
+      <Keyboard
+        coincidences={coincidences}
+        updateGuess={updateGuess}
+      />
+
+      {isLoading && <Loading />}
     </>
   );
 };
