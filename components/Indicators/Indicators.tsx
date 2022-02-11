@@ -65,7 +65,7 @@ const Indicators: React.FC<IIndicatorsComponentProps> = ({
           animation: ${divOpen && THEME.ANIMATIONS.FADE_IN};
           display: ${divOpen ? '' : 'none'};
 
-          z-index: 10;
+          z-index: 100;
         }
 
         section h2 {

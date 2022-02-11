@@ -20,11 +20,12 @@ const KeyboardKey: React.FC<IKeyboardProps> = ({
 
   return (
     <button onClick={() => updateGuess(keyValue)}>
-      {isSpecial ? (
-        <span> <FontAwesomeIcon icon={isEnter ? faPaperPlane : faDeleteLeft} /></span>
-      ) : (
-        keyValue
-      )}
+      <span>
+        {isSpecial ? (<FontAwesomeIcon icon={isEnter ? faPaperPlane : faDeleteLeft} />
+        ) : (
+          keyValue
+        )}</span>
+
       <style jsx>{`
         button {
           display: grid;
@@ -35,7 +36,6 @@ const KeyboardKey: React.FC<IKeyboardProps> = ({
           border-radius: 0.5rem;
 
           flex: ${isSpecial ? "1.5" : "1"};
-          height: ${THEME.SIZES.KEYBOARD_KEY};
 
           font-weight: bold;
           color: ${THEME.COLORS.FONT};
@@ -69,6 +69,7 @@ const KeyboardKey: React.FC<IKeyboardProps> = ({
             width: 50%;
           }
         }
+
       `}</style>
     </button>
   );

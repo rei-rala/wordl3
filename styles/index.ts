@@ -18,7 +18,11 @@ enum SIZES {
   GLOBAL_MAX_WIDTH = "var(--GLOBAL-MAX-WIDTH)",
 
   FRAME_HEIGHT = "var(--frame-height)",
+  FRAME_HEIGHT_LANDSCAPE = "var(--frame-height-landscape)",
+
   KEYBOARD_HEIGHT = "var(--keyboard-height)",
+  KEYBOARD_HEIGHT_LANDSCAPE = "var(--keyboard-height-landscape)",
+  NAVBAR_HEIGHT = "var(--navbar-height)",
   FOOTER_HEIGHT = "var(--footer-height)",
 }
 

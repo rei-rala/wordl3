@@ -33,6 +33,16 @@
   --frame-height: 65%;
   --keyboard-height: 29%;
 
+  --frame-height-landscape: 65%;
+  --keyboard-height-landscape: 35%;
+
+  --navbar-heigth: calc(
+    calc(100% - var(--keyboard-height) - var(--frame-height)) / 2
+  );
+  --footer-height: calc(
+    calc(100% - var(--keyboard-height) - var(--frame-height)) / 2
+  );
+
   --GLOBAL-MAX-WIDTH: 550px;
 }
 

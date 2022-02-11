@@ -13,14 +13,14 @@ const handler = (req: NextApiRequest, res: NextApiResponse<IGameApiResponse>) =>
   if (req.method === "POST") {
     const { data } = req.body;
 
-    const parsedGuesses = strToObjParser(data, []).slice(0, game.maxTries).map((c: string) => c.slice(0, game.word.length).toUpperCase().padEnd(game.word.length, '?'));
+    const parsedGuesses: string[] = strToObjParser(data, []).slice(0, game.maxTries).map((c: string) => c.slice(0, game.word.length).toUpperCase().padEnd(game.word.length, '?'));
     const coincidences: Coincidence[] = getCoincidences(parsedGuesses, game.word);
     const definition: { meaning: string, word: string, win?: boolean } | undefined = {
       word: game.word,
       meaning: game.meaning,
     }
 
-    if (parsedGuesses.length >= game.maxTries) {
+    if (parsedGuesses.length > game.maxTries) {
       definition.win = false;
     } else {
       for (let coincidence of coincidences) {

@@ -23,34 +23,49 @@ const Letter: React.FC<ILetterComponentProps> = ({
   letterIndex,
   isLastLetter,
   coincidenceState,
-  isGuessing
+  isGuessing,
 }) => {
   return (
-    <div>
-      <span>{letter}</span>
+    < div >
+      <span>{letter === " " ? "\u200C" : letter}</span>
       <style jsx>{`
         div {
-          display: grid;
-          place-items: center;
-
           color: ${isGuessing && letter !== ' ' ? cStyle.color.NONE : cStyle.color[coincidenceState] ?? cStyle.color.EMPTY};
           
           border: 3px outset ${THEME.COLORS.BORDER};
           border-radius: 0.5rem;
           background-color: ${isGuessing && letter !== ' ' ? cStyle.backgroundColor.NONE : cStyle.backgroundColor[coincidenceState] ?? cStyle.backgroundColor.EMPTY};
-          width: ${THEME.SIZES.LETTER_SQUARE};
-          height: ${THEME.SIZES.LETTER_SQUARE};
-          max-width: ${THEME.SIZES.LETTER_SQUARE};
-
-        ${isLastGuess
+          
+          height: 100%;
+          flex: 1;
+          
+          ${isLastGuess
           ? `animation: ${THEME.ANIMATIONS.FLIP}; animation-delay: ${letterIndex * 125}ms;`
           : isLastLetter
             ? `animation: ${THEME.ANIMATIONS.LETTER_POP};`
             : ""}
+
+        }
+        
+        div span {
+          display: grid;
+          place-items: center;
+          transition: all ${THEME.ANIMATIONS.DURATION_MS_INT}ms;
+          
+          height: 100%;
+          width: 100%;
         }
 
+        @media screen and (min-height: 476px) {
+          div span {
+            font-size: 5vh;
+          }
+        }
+
+
+
       `}</style>
-    </div>
+    </div >
   );
 };
 

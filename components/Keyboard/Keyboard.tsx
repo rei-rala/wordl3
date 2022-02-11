@@ -29,28 +29,35 @@ const Keyboard: React.FC<IKeyboardProps> = ({ updateGuess }) => {
       section {
         display: flex;
         flex-direction: column;
-        justify-content: space-around;
+        justify-content: space-evenly;
 
-        width: 100%;
-        height: ${THEME.SIZES.KEYBOARD_HEIGHT};
+        width: calc(100% - 3rem);
+        height: 40vh;
+
         max-width: ${THEME.SIZES.GLOBAL_MAX_WIDTH};
-        padding: 0.5rem;
+        height: ${THEME.SIZES.KEYBOARD_HEIGHT_LANDSCAPE};
 
         transition: all 1s;
+        z-index: 10;
       }
       
       section > div {
         display: flex;
         flex-flow: row nowrap;
-        justify-content: space-around;
+        justify-content: space-evenly;
 
-        width: 100%;
+        height: 30%;
       }
 
       @media screen and (min-width: 550px) {
         section {
           width: 80%;
-          padding: 0.25rem;
+        }
+      }
+      
+      @media screen and (min-height: 476px) {
+        section {
+          height: ${THEME.SIZES.KEYBOARD_HEIGHT};
         }
       }
     

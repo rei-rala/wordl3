@@ -27,6 +27,7 @@ const Footer: React.FC = () => {
 
           gap: 0.5rem;
 
+          height: ${THEME.SIZES.FOOTER_HEIGHT};
           width: 100%;
           max-width: ${THEME.SIZES.GLOBAL_MAX_WIDTH};
 
@@ -43,6 +44,28 @@ const Footer: React.FC = () => {
         }
         footer a:hover  {
           color: ${THEME.COLORS.SKY}
+        }
+
+        @media screen and (max-height: 476px) {
+          footer {
+            z-index: 9999;
+            position: fixed;
+            height: 100%;
+            width: 1.5rem;
+            height: 100%;
+            right: 0;            
+            flex-direction: column-reverse;
+            justify-content: center;
+            align-items: center;
+          }
+          footer * {
+            transform: rotate(-90deg);
+            margin: 0.25rem 0;
+          }
+          footer strong {
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+          }
         }
       `}</style>
     </footer>

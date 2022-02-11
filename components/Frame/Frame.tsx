@@ -3,10 +3,13 @@ import { IFrameComponentProps } from "../../types";
 import Word from "./Word/Word";
 import THEME from "../../styles";
 
-
-const Frame: React.FC<IFrameComponentProps> = ({ maxTries, wordLength, guesses, currentGuess, coincidences }) => {
-
-
+const Frame: React.FC<IFrameComponentProps> = ({
+  maxTries,
+  wordLength,
+  guesses,
+  currentGuess,
+  coincidences,
+}) => {
   return (
     <main>
       {
@@ -33,26 +36,27 @@ const Frame: React.FC<IFrameComponentProps> = ({ maxTries, wordLength, guesses, 
         main {
           display: flex;
           flex-flow: column nowrap;
-          justify-content: space-around;
+          justify-content: space-evenly;
           align-items: center;
+          height: ${THEME.SIZES.FRAME_HEIGHT_LANDSCAPE};
+          padding: 1rem 0;
 
-          font-size: 2rem;
-          
-          height: ${THEME.SIZES.FRAME_HEIGHT};
-          width: 100%;
+          width: calc(100% - 3rem);
+
           max-width: ${THEME.SIZES.GLOBAL_MAX_WIDTH};
           background-color: ${THEME.COLORS.THEME};
+
+          z-index: 1;
         }
-        
-        @media screen and (max-width: 550px) {
+
+        @media screen and (min-width: 476px) {
           main {
-            width: 100%;
+            width: calc(100% - 4rem);
           }
         }
-        
       `}</style>
     </main>
   );
-}
+};
 
 export default Frame;
