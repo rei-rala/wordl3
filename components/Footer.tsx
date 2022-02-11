@@ -33,6 +33,7 @@ const Footer: React.FC = () => {
 
           background:  ${THEME.COLORS.GRADIENT_BKG};
           color: ${THEME.COLORS.FONT};
+          font-size: 0.8rem
         }
 
         footer a {

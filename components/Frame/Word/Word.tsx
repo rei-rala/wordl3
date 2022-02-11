@@ -23,13 +23,11 @@ const Word: React.FC<IWordComponentProps> = ({ word, currentGuessIndex, isLastGu
           flex: 1;
           
           display: flex;
-          justify-content: space-between;
+          justify-content: center;
           align-items: center;
+          
           margin: 0.1rem;
-
-          height: 100%;
           width: 100%;
-          transition: all 500ms;
         }
 
         @media screen and (min-width: 768px) {

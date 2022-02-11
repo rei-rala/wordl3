@@ -10,6 +10,7 @@ export const DICTIONARY: { [key: string]: string } = {
   'PERRO': 'Perruno plural',
   'GATOS': 'Gatuno plural',
   'PATOS': 'Patuno plural',
+  'PIÑAS': 'Piñano plural',
 }
 
 const WORDS = Object.keys(DICTIONARY)

@@ -30,21 +30,22 @@ const Letter: React.FC<ILetterComponentProps> = ({
       <span>{letter === " " ? "\u200C" : letter}</span>
       <style jsx>{`
         div {
-          color: ${isGuessing && letter !== ' ' ? cStyle.color.NONE : cStyle.color[coincidenceState] ?? cStyle.color.EMPTY};
-          
-          border: 3px outset ${THEME.COLORS.BORDER};
-          border-radius: 0.5rem;
-          background-color: ${isGuessing && letter !== ' ' ? cStyle.backgroundColor.NONE : cStyle.backgroundColor[coincidenceState] ?? cStyle.backgroundColor.EMPTY};
-          
-          height: 100%;
           flex: 1;
+
+          margin: 0.1rem;
           
+          color: ${isGuessing && letter !== ' ' ? cStyle.color.NONE : cStyle.color[coincidenceState] ?? cStyle.color.EMPTY};
+          background-color: ${isGuessing && letter !== ' ' ? cStyle.backgroundColor.NONE : cStyle.backgroundColor[coincidenceState] ?? cStyle.backgroundColor.EMPTY};
+          border: 3px inset ${THEME.COLORS.BORDER};
+          border-radius: 0.5rem;
+          
+          transition: all 0.2s ease-in-out;
+                   
           ${isLastGuess
           ? `animation: ${THEME.ANIMATIONS.FLIP}; animation-delay: ${letterIndex * 125}ms;`
           : isLastLetter
             ? `animation: ${THEME.ANIMATIONS.LETTER_POP};`
             : ""}
-
         }
         
         div span {
@@ -59,6 +60,11 @@ const Letter: React.FC<ILetterComponentProps> = ({
         @media screen and (min-height: 476px) {
           div span {
             font-size: 5vh;
+          }
+          
+          div {
+            max-height: ${THEME.SIZES.LETTER_SQUARE};
+            max-width:${THEME.SIZES.LETTER_SQUARE};
           }
         }
 

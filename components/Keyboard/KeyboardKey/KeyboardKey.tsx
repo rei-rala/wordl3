@@ -4,13 +4,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane, faDeleteLeft } from "@fortawesome/free-solid-svg-icons";
 
 import THEME from "../../../styles";
+import { IKeyboardKeyProps } from "../../../types";
 
-interface IKeyboardProps {
-  keyValue: string;
-  updateGuess: (arg0: string) => void;
-}
-
-const KeyboardKey: React.FC<IKeyboardProps> = ({
+const KeyboardKey: React.FC<IKeyboardKeyProps> = ({
   keyValue,
   updateGuess,
 }) => {
@@ -21,17 +17,19 @@ const KeyboardKey: React.FC<IKeyboardProps> = ({
   return (
     <button onClick={() => updateGuess(keyValue)}>
       <span>
-        {isSpecial ? (<FontAwesomeIcon icon={isEnter ? faPaperPlane : faDeleteLeft} />
+        {isSpecial ? (
+          <FontAwesomeIcon icon={isEnter ? faPaperPlane : faDeleteLeft} />
         ) : (
           keyValue
-        )}</span>
+        )}
+      </span>
 
       <style jsx>{`
         button {
           display: grid;
           place-items: center;
 
-          border: 1px inset ${THEME.COLORS.THEME_SECONDARY};
+          border: 1px outset ${THEME.COLORS.THEME_SECONDARY};
           background: ${THEME.COLORS.THEME_TERTIARY};
           border-radius: 0.5rem;
 
@@ -39,6 +37,7 @@ const KeyboardKey: React.FC<IKeyboardProps> = ({
 
           font-weight: bold;
           color: ${THEME.COLORS.FONT};
+          font-size: 1em;
         }
         button:hover {
           color: ${isBackspace
@@ -60,16 +59,20 @@ const KeyboardKey: React.FC<IKeyboardProps> = ({
         button span {
           display: grid;
           place-items: center;
-          width: 75%;
-          height: 75%;
+          width: ${isSpecial ? "50%" : "fit-content"};
+          height: 50%;
         }
-
-        @media screen and (min-width: 550px) {
-          button span {
-            width: 50%;
+        @media screen and (min-width: 481px) (orientation: portrait) {
+          button {
+            font-size: 1.3em;
           }
         }
 
+        @media screen and (min-width: 768px) and (orientation: portrait) {
+          button {
+            font-size: 1.5em;
+          }
+        }
       `}</style>
     </button>
   );

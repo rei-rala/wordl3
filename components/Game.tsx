@@ -81,7 +81,7 @@ const Game: React.FC = () => {
     if (gameOver.state)
       return setError({ foundError: true, message: "Juego terminado!" });
 
-    if (/^[a-zA-Z]$/i.test(keyValue) || ["BACKSPACE", "ENTER"].includes(keyValue)) {
+    if (/^[a-zA-Z]$/i.test(keyValue) || ['ñ', 'Ñ'].includes(keyValue) || ["BACKSPACE", "ENTER"].includes(keyValue)) {
       if (keyValue === "BACKSPACE") {
         setCurrentGuess(currentGuess.slice(0, currentGuess.length - 1));
       } else if (keyValue === "ENTER") {

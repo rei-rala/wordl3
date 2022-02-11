@@ -67,6 +67,16 @@ export interface ILetterComponentProps {
   isLastLetter: boolean;
 }
 
+export interface IKeyboardKeyProps {
+  keyValue: string;
+  updateGuess: (arg0: string) => void;
+}
+
+export interface IKeyboardProps {
+  coincidences: Coincidence[],
+  updateGuess: (arg0: string) => void,
+}
+
 export interface IGameApiResponse {
   status: string;
   wordLength?: number;
