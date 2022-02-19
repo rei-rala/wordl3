@@ -50,6 +50,7 @@ export interface IGuessComponentProps {
 }
 
 export interface IWordComponentProps {
+  maxTries: number;
   isLastGuess: boolean;
   isCurrentGuess: boolean;
   currentGuessIndex: number;

@@ -1,6 +1,6 @@
 import React from "react";
-import { ILetterComponentProps, StyleByCoincidence } from "../../../../types";
-import THEME from "../../../../styles";
+import { ILetterComponentProps, StyleByCoincidence } from "../../../../../types";
+import THEME from "../../../../../styles";
 
 const cStyle: StyleByCoincidence = {
   backgroundColor: {
@@ -26,52 +26,50 @@ const Letter: React.FC<ILetterComponentProps> = ({
   isGuessing,
 }) => {
   return (
-    < div >
+    <div>
       <span>{letter === " " ? "\u200C" : letter}</span>
       <style jsx>{`
         div {
           flex: 1;
+          height: 100%;
 
-          margin: 0.1rem;
+          color: ${isGuessing || letter === " "
+          ? cStyle.color.EMPTY
+          : cStyle.color[coincidenceState] ?? cStyle.backgroundColor.EMPTY
+        };
+
+          background-color: ${isGuessing || letter === " "
+          ? cStyle.backgroundColor.EMPTY
+          : cStyle.backgroundColor[coincidenceState] ??
+          cStyle.backgroundColor.EMPTY
+        };
+          border: 2px inset ${THEME.COLORS.BORDER};
+          border-radius: 0.15rem; 
           
-          color: ${isGuessing && letter !== ' ' ? cStyle.color.NONE : cStyle.color[coincidenceState] ?? cStyle.color.EMPTY};
-          background-color: ${isGuessing && letter !== ' ' ? cStyle.backgroundColor.NONE : cStyle.backgroundColor[coincidenceState] ?? cStyle.backgroundColor.EMPTY};
-          border: 3px inset ${THEME.COLORS.BORDER};
-          border-radius: 0.5rem;
-          
-          transition: all 0.2s ease-in-out;
-                   
           ${isLastGuess
-          ? `animation: ${THEME.ANIMATIONS.FLIP}; animation-delay: ${letterIndex * 125}ms;`
-          : isLastLetter
-            ? `animation: ${THEME.ANIMATIONS.LETTER_POP};`
-            : ""}
+          ? `animation: ${THEME.ANIMATIONS.FLIP}; animation-delay: calc(${THEME.ANIMATIONS.DURATION} * ${letterIndex} / 3);`
+          : isLastLetter ? `animation: ${THEME.ANIMATIONS.LETTER_POP};` : ''}
         }
         
         div span {
           display: grid;
           place-items: center;
-          transition: all ${THEME.ANIMATIONS.DURATION_MS_INT}ms;
           
           height: 100%;
           width: 100%;
+          ${isLastGuess
+          ? `animation: ${THEME.ANIMATIONS.FLIP}; animation-delay: calc(${THEME.ANIMATIONS.DURATION} * ${letterIndex} / 3);`
+          : isLastLetter ? `animation: ${THEME.ANIMATIONS.LETTER_POP};` : ''}
         }
 
         @media screen and (min-height: 476px) {
-          div span {
-            font-size: 5vh;
-          }
-          
           div {
             max-height: ${THEME.SIZES.LETTER_SQUARE};
             max-width:${THEME.SIZES.LETTER_SQUARE};
           }
         }
-
-
-
       `}</style>
-    </div >
+    </div>
   );
 };
 

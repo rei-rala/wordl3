@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Keyboard, Loading } from ".";
-import { findWordInDictionary } from "../resources";
-import { postGuess } from "../services";
+import { Keyboard, Loading } from "..";
+import { findWordInDictionary } from "../../resources";
+import { postGuess } from "../../services";
 
-import { Coincidence, GameOver } from "../types";
-import { validateString } from "../utils";
+import { Coincidence, GameOver } from "../../types";
+import { validateString } from "../../utils";
 
 import Frame from "./Frame/Frame";
-import Indicators from "./Indicators/Indicators";
+import Indicators from "../Indicators/Indicators";
 
-import THEME from "../styles";
+import THEME from "../../styles";
 
 const Game: React.FC = () => {
   const [maxTries, setMaxTries] = useState(6);
@@ -81,7 +81,7 @@ const Game: React.FC = () => {
     if (gameOver.state)
       return setError({ foundError: true, message: "Juego terminado!" });
 
-    if (/^[a-zA-Z]$/i.test(keyValue) || ['ñ', 'Ñ'].includes(keyValue) || ["BACKSPACE", "ENTER"].includes(keyValue)) {
+    if (/^[a-zA-Z]$/i.test(keyValue) || ['ñ', 'Ñ', "BACKSPACE", "ENTER"].includes(keyValue)) {
       if (keyValue === "BACKSPACE") {
         setCurrentGuess(currentGuess.slice(0, currentGuess.length - 1));
       } else if (keyValue === "ENTER") {

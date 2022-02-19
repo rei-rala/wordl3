@@ -3,19 +3,21 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane, faDeleteLeft } from "@fortawesome/free-solid-svg-icons";
 
-import THEME from "../../../styles";
-import { IKeyboardKeyProps } from "../../../types";
+import THEME from "../../../../styles";
+import { IKeyboardKeyProps } from "../../../../types";
 
 const KeyboardKey: React.FC<IKeyboardKeyProps> = ({
   keyValue,
   updateGuess,
 }) => {
-  const isEnter = keyValue.toUpperCase() === "ENTER";
-  const isBackspace = keyValue.toUpperCase() === "BACKSPACE";
+  const isEnter = keyValue === "ENTER";
+  const isBackspace = keyValue === "BACKSPACE";
   const isSpecial = isEnter || isBackspace;
 
+  const handleClick = () => updateGuess(keyValue);
+
   return (
-    <button onClick={() => updateGuess(keyValue)}>
+    <button onClick={handleClick}>
       <span>
         {isSpecial ? (
           <FontAwesomeIcon icon={isEnter ? faPaperPlane : faDeleteLeft} />
@@ -29,16 +31,17 @@ const KeyboardKey: React.FC<IKeyboardKeyProps> = ({
           display: grid;
           place-items: center;
 
-          border: 1px outset ${THEME.COLORS.THEME_SECONDARY};
+          border: 2px outset ${THEME.COLORS.THEME_SECONDARY};
           background: ${THEME.COLORS.THEME_TERTIARY};
           border-radius: 0.5rem;
 
-          flex: ${isSpecial ? "1.5" : "1"};
+          flex: ${isSpecial ? "1.15" : "1"};
 
           font-weight: bold;
           color: ${THEME.COLORS.FONT};
-          font-size: 1em;
+          font-size: 0.7em;
         }
+
         button:hover {
           color: ${isBackspace
           ? THEME.COLORS.ALERT
@@ -62,15 +65,15 @@ const KeyboardKey: React.FC<IKeyboardKeyProps> = ({
           width: ${isSpecial ? "50%" : "fit-content"};
           height: 50%;
         }
-        @media screen and (min-width: 481px) (orientation: portrait) {
+        @media (min-width: 481px) (orientation: portrait) {
           button {
-            font-size: 1.3em;
+            font-size: 2em;
           }
         }
 
-        @media screen and (min-width: 768px) and (orientation: portrait) {
+        @media (min-width: 768px)  {
           button {
-            font-size: 1.5em;
+            font-size: 3em;
           }
         }
       `}</style>

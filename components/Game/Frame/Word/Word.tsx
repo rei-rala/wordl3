@@ -1,8 +1,9 @@
 import React from "react";
 import Letter from "./Letter/Letter";
-import { IWordComponentProps, States } from "../../../types";
+import { IWordComponentProps, States } from "../../../../types";
+import THEME from "../../../../styles";
 
-const Word: React.FC<IWordComponentProps> = ({ word, currentGuessIndex, isLastGuess, isCurrentGuess, wordIndex, coincidences = {} }) => {
+const Word: React.FC<IWordComponentProps> = ({ maxTries, word, currentGuessIndex, isLastGuess, isCurrentGuess, wordIndex, coincidences = {} }) => {
   return (
     <div>
       {
@@ -20,25 +21,30 @@ const Word: React.FC<IWordComponentProps> = ({ word, currentGuessIndex, isLastGu
       }
       <style jsx>{`
         div {
-          flex: 1;
-          
           display: flex;
           justify-content: center;
           align-items: center;
+          gap: 0.5vh;
           
-          margin: 0.1rem;
-          width: 100%;
+          width: 65%;
+          height: calc((${THEME.SIZES.FRAME_HEIGHT_LANDSCAPE} / ${maxTries}) * 1.35);
+          font-size: calc((${THEME.SIZES.FRAME_HEIGHT_LANDSCAPE} / ${maxTries}) * 8);
         }
 
+        @media screen and (min-height: 476px){
+          div {
+            font-size: 3.5vh; 
+            width: 95%;
+          }
+        }
         @media screen and (min-width: 768px) {
           div {
             width: 70%;
           }
         }
-
-        @media screen and (min-height: 476px){
+        @media screen and (min-height: 550px) and (orientation: landscape) {
           div {
-            width: 95%;
+            height: 100%;
           }
         }
       `}</style>

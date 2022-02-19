@@ -31,7 +31,7 @@ enum ANIMATIONS {
   FADE_IN = "var(--anim-fadeIn)",
   FLIP = "var(--anim-flip)",
   PULSE = "var(--anim-pulse)",
-  DURATION_MS = "var(--anim-duration)",
+  DURATION = "var(--anim-duration)",
   DURATION_MS_INT = 500
 }
 

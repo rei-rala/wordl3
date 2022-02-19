@@ -1,7 +1,7 @@
 import React from "react";
 
-import THEME from "../../styles";
-import useDarkTheme from "../../hooks/useDarkTheme";
+import THEME from "../../../styles";
+import useDarkTheme from "../../../hooks/useDarkTheme";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
@@ -23,6 +23,8 @@ const Menu: React.FC = () => {
           place-items: center;
           padding: 0;
           width: 1rem;
+          height: 1rem;
+
           background-color: transparent;
           border: none;
 

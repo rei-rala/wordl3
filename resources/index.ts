@@ -1,3 +1,4 @@
+import { DICTIONARY } from "./dictionary";
 import { randomArrayItem } from "../utils";
 
 export const KEYBOARD_ROWS = [
@@ -6,14 +7,14 @@ export const KEYBOARD_ROWS = [
   ["ENTER", ..."zxcvbnm".toUpperCase().split(''), "BACKSPACE"],
 ]
 
-export const DICTIONARY: { [key: string]: string } = {
+export const TEMP_DICTIONARY: { [key: string]: string } = {
   'PERRO': 'Perruno plural',
   'GATOS': 'Gatuno plural',
   'PATOS': 'Patuno plural',
   'PIÑAS': 'Piñano plural',
 }
 
-const WORDS = Object.keys(DICTIONARY)
+const WORDS = Object.keys(TEMP_DICTIONARY)
 
 const MAX_TRIES = process.env.MAX_TRIES && !isNaN(+process.env.MAX_TRIES) ? parseInt(process.env.MAX_TRIES) : 6
 
@@ -27,13 +28,13 @@ export const API_CONFIG = {
 
 
 const randomWord = randomArrayItem(WORDS);
-const selected = { word: randomWord ?? 'err=(', meaning: DICTIONARY[randomWord] ?? 'err=(' };
+const selected = { word: randomWord ?? 'err=(', meaning: TEMP_DICTIONARY[randomWord] ?? 'err=(' };
 
 export const game = { word: selected.word, meaning: selected.meaning, maxTries: MAX_TRIES };
 export const userGame = { wordLength: game.word.length, maxTries: game.maxTries }
 
 export const findWordInDictionary = (word: string) => {
-  const meaning = DICTIONARY[word]
+  const meaning = TEMP_DICTIONARY[word]
 
   return meaning ? ({ word, meaning: meaning }) : undefined
 }

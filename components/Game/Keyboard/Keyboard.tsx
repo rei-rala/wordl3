@@ -1,12 +1,12 @@
 import React from "react";
-import { KEYBOARD_ROWS } from "../../resources";
-import THEME from "../../styles";
-import { IKeyboardProps } from "../../types";
+import { KEYBOARD_ROWS } from "../../../resources";
+import THEME from "../../../styles";
+import { IKeyboardProps } from "../../../types";
 import KeyboardKey from "./KeyboardKey/KeyboardKey";
 
 const Keyboard: React.FC<IKeyboardProps> = ({ updateGuess }) => {
   return (
-    <section className="wtf">
+    <section>
       {KEYBOARD_ROWS.map((keyRow, keyRowIndex) => (
         <div key={`keyRow-${keyRowIndex}`}>
           {keyRow.map((keyValue) => (
@@ -23,16 +23,13 @@ const Keyboard: React.FC<IKeyboardProps> = ({ updateGuess }) => {
         section {
           display: flex;
           flex-direction: column;
-          justify-content: space-evenly;
-
-          width: calc(100% - 3rem);
-          height: 40vh;
-
+          justify-content: flex-end;
+          gap: 0.5vh;
+          
+          width: calc(100% - 4rem);
           max-width: ${THEME.SIZES.GLOBAL_MAX_WIDTH};
-          height: ${THEME.SIZES.KEYBOARD_HEIGHT_LANDSCAPE};
-          padding-bottom: 1rem;
-
-          transition: all 1s;
+          margin-bottom: 0.5rem;
+          height: 40vh;
           z-index: 10;
         }
 
@@ -41,18 +38,18 @@ const Keyboard: React.FC<IKeyboardProps> = ({ updateGuess }) => {
           flex-flow: row nowrap;
           justify-content: space-evenly;
 
-          height: 30%;
-        }
-
-        @media screen and (min-width: 550px) {
-          section {
-            width: 80%;
-          }
+          height: 25%;
         }
 
         @media screen and (min-height: 476px) {
           section {
-            height: ${THEME.SIZES.KEYBOARD_HEIGHT};
+            margin-bottom: 1rem;
+          }
+        }
+        
+        @media screen and (min-width: 768px) {
+          section {
+            width: 100%;
           }
         }
       `}</style>

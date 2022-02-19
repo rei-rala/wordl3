@@ -1,7 +1,7 @@
-import Navbar from "./Navbar";
-import Game from "./Game";
-import Keyboard from "./Keyboard/Keyboard";
-import Footer from "./Footer";
+import Navbar from "./Navbar/Navbar";
+import Game from "./Game/Game";
+import Keyboard from "./Game/Keyboard/Keyboard";
+import Footer from "./Footer/Footer";
 import Loading from "./Loading";
 
 export { Navbar, Game, Keyboard, Footer, Loading }

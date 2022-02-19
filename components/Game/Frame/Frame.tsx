@@ -1,7 +1,7 @@
 import React from "react";
-import { IFrameComponentProps } from "../../types";
+import { IFrameComponentProps } from "../../../types";
 import Word from "./Word/Word";
-import THEME from "../../styles";
+import THEME from "../../../styles";
 
 const Frame: React.FC<IFrameComponentProps> = ({
   maxTries,
@@ -17,6 +17,7 @@ const Frame: React.FC<IFrameComponentProps> = ({
         Array(maxTries)
           .fill('?')
           .map((_, wordIndex) => <Word
+            maxTries={maxTries}
             isCurrentGuess={wordIndex === coincidences.length}
             isLastGuess={wordIndex === coincidences.length - 1}
             coincidences={coincidences[wordIndex]}
@@ -36,24 +37,29 @@ const Frame: React.FC<IFrameComponentProps> = ({
         main {
           display: flex;
           flex-flow: column nowrap;
-          justify-content: space-evenly;
+          justify-content: flex-start;
           align-items: center;
+          gap: 0.5vh;
+
           height: ${THEME.SIZES.FRAME_HEIGHT_LANDSCAPE};
           padding: 1rem 0;
 
-          width: calc(100% - 3rem);
-
+          width: calc(100% - 4rem);
           max-width: ${THEME.SIZES.GLOBAL_MAX_WIDTH};
-          background-color: ${THEME.COLORS.THEME};
 
           z-index: 1;
+
+          font-weight: bold;
+          font-family: 'Cousine', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
         }
 
-        @media screen and (min-width: 476px) {
+        @media screen and (min-width: 768px) {
           main {
-            width: calc(100% - 4rem);
+            width: 100%;
           }
         }
+
       `}</style>
     </main>
   );
