@@ -18,6 +18,7 @@ const Game: React.FC = () => {
   const [guesses, setGuesses] = useState<string[]>([]);
   const [currentGuess, setCurrentGuess] = useState("");
 
+  // TODO: Change logic for loading state to array of loading-reasons
   const [isLoading, setIsLoading] = useState(false);
 
   const [gameOver, setGameOver] = useState<GameOver>({ state: false });
@@ -81,7 +82,10 @@ const Game: React.FC = () => {
     if (gameOver.state)
       return setError({ foundError: true, message: "Juego terminado!" });
 
-    if (/^[a-zA-Z]$/i.test(keyValue) || ['ñ', 'Ñ', "BACKSPACE", "ENTER"].includes(keyValue)) {
+    if (
+      /^[a-zA-Z]$/i.test(keyValue) ||
+      ["ñ", "Ñ", "BACKSPACE", "ENTER"].includes(keyValue)
+    ) {
       if (keyValue === "BACKSPACE") {
         setCurrentGuess(currentGuess.slice(0, currentGuess.length - 1));
       } else if (keyValue === "ENTER") {
@@ -90,11 +94,15 @@ const Game: React.FC = () => {
         setCurrentGuess((currentGuess + keyValue).slice(0, wordLength));
       }
     }
-  }
+  };
 
   const handleKey = (event: KeyboardEvent) => {
+    if (gameOver.state)
+      return setError({ foundError: true, message: "Juego terminado!" });
+
     const KEY = event.key.toUpperCase();
-    updateGuess(KEY)
+    updateGuess(KEY);
+    KEY === "ENTER" && event.preventDefault();
   };
 
   useEffect(() => {
@@ -141,10 +149,7 @@ const Game: React.FC = () => {
         error={error}
         invalidGuess={invalidGuess}
       />
-      <Keyboard
-        coincidences={coincidences}
-        updateGuess={updateGuess}
-      />
+      <Keyboard coincidences={coincidences} updateGuess={updateGuess} />
 
       {isLoading && <Loading />}
     </>

@@ -39,16 +39,15 @@ const KeyboardKey: React.FC<IKeyboardKeyProps> = ({
 
           font-weight: bold;
           color: ${THEME.COLORS.FONT};
-          font-size: 0.7em;
         }
 
         button:hover {
+          background: transparent;
           color: ${isBackspace
           ? THEME.COLORS.ALERT
           : isEnter
             ? THEME.COLORS.SUCCESS
             : THEME.COLORS.SKY};
-          background: transparent;
           border-color: ${isBackspace
           ? THEME.COLORS.ALERT
           : isEnter
@@ -62,18 +61,15 @@ const KeyboardKey: React.FC<IKeyboardKeyProps> = ({
         button span {
           display: grid;
           place-items: center;
-          width: ${isSpecial ? "50%" : "fit-content"};
-          height: 50%;
-        }
-        @media (min-width: 481px) (orientation: portrait) {
-          button {
-            font-size: 2em;
-          }
+          height: 100%;
+          width: ${isSpecial ? "55%" : "fit-content"};
+          overflow: hidden;
         }
 
-        @media (min-width: 768px)  {
+        @media screen and (min-height: 476px){
           button {
-            font-size: 3em;
+            font-size: 2.5vh;
+            width: 95%;
           }
         }
       `}</style>

@@ -25,47 +25,57 @@ const Letter: React.FC<ILetterComponentProps> = ({
   coincidenceState,
   isGuessing,
 }) => {
+
+  
   return (
-    <div>
+    <div className={isGuessing ? "GUESS" : coincidenceState}>
       <span>{letter === " " ? "\u200C" : letter}</span>
       <style jsx>{`
         div {
           flex: 1;
           height: 100%;
-
-          color: ${isGuessing || letter === " "
-          ? cStyle.color.EMPTY
-          : cStyle.color[coincidenceState] ?? cStyle.backgroundColor.EMPTY
-        };
-
-          background-color: ${isGuessing || letter === " "
-          ? cStyle.backgroundColor.EMPTY
-          : cStyle.backgroundColor[coincidenceState] ??
-          cStyle.backgroundColor.EMPTY
-        };
           border: 2px inset ${THEME.COLORS.BORDER};
-          border-radius: 0.15rem; 
+          border-radius: 0.15rem;
           
-          ${isLastGuess
-          ? `animation: ${THEME.ANIMATIONS.FLIP}; animation-delay: calc(${THEME.ANIMATIONS.DURATION} * ${letterIndex} / 3);`
-          : isLastLetter ? `animation: ${THEME.ANIMATIONS.LETTER_POP};` : ''}
+          color: ${cStyle.color.FULL};
+          background: ${cStyle.backgroundColor.EMPTY}; 
         }
-        
+
         div span {
           display: grid;
           place-items: center;
-          
           height: 100%;
           width: 100%;
-          ${isLastGuess
-          ? `animation: ${THEME.ANIMATIONS.FLIP}; animation-delay: calc(${THEME.ANIMATIONS.DURATION} * ${letterIndex} / 3);`
-          : isLastLetter ? `animation: ${THEME.ANIMATIONS.LETTER_POP};` : ''}
+          transition: ${isLastGuess ? THEME.ANIMATIONS.DURATION : ''};
+          transition-delay: ${isLastGuess ? `calc(${THEME.ANIMATIONS.DURATION} * ${letterIndex} / 3)` : ''};
+        }
+        
+        .GUESS {
+          color: ${cStyle.color.EMPTY};
+          animation: ${isLastLetter ? THEME.ANIMATIONS.LETTER_POP : ""};
+        }
+
+        .NONE, .PARTIAL, .FULL {
+          transform: rotateX(-180deg);
+          background: ${cStyle.backgroundColor[coincidenceState] ?? cStyle.backgroundColor.EMPTY};
+          transition: ${isLastGuess ? `transform ${THEME.ANIMATIONS.DURATION}, background ${THEME.ANIMATIONS.DURATION} cubic-bezier(1,-2,0,3), color ${THEME.ANIMATIONS.DURATION} cubic-bezier(1,-2,0,3)` : ''};
+          transition-delay: ${isLastGuess ? `calc(${THEME.ANIMATIONS.DURATION} * ${letterIndex} / 3)` : ''};
+        }
+
+        :is(.NONE, .PARTIAL, .FULL) > span {
+          transform: rotateX(-180deg);
         }
 
         @media screen and (min-height: 476px) {
           div {
             max-height: ${THEME.SIZES.LETTER_SQUARE};
-            max-width:${THEME.SIZES.LETTER_SQUARE};
+            max-width: ${THEME.SIZES.LETTER_SQUARE};
+          }
+        }
+        
+        @media screen and (min-height: 615px) and (min-width: 600px) {
+          div {
+            aspect-ratio: 1;
           }
         }
       `}</style>

@@ -5,8 +5,11 @@ import THEME from "../../../styles";
 
 
 const Gamerules: React.FC = () => {
+  // TODO: Display game rules
+  const TEMPFUNCTION = () => { localStorage.removeItem('guesses')}
+  
   return (
-    <button>
+    <button onClick={TEMPFUNCTION}>
       <FontAwesomeIcon icon={faCircleQuestion} />
 
       <style jsx>{`
@@ -22,7 +25,8 @@ const Gamerules: React.FC = () => {
         }
 
         button:hover {
-          animation: ${THEME.ANIMATIONS.PULSE};
+          transform: scale(1.1);
+          color: ${THEME.COLORS.SKY};
         }
       `}</style>
     </button>

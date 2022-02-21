@@ -1,4 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
+import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
+
 
 export type GameOver = { state: boolean, message?: string, definition?: { word: string, meaning: string } }
 
@@ -85,4 +87,9 @@ export interface IGameApiResponse {
   guesses?: string[];
   coincidences?: Coincidence[];
   definition?: { meaning: string, word: string };
+}
+
+export interface ISocialMediaProps {
+  link: string;
+  faIcon?: IconDefinition;
 }

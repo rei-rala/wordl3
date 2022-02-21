@@ -32,7 +32,7 @@ const Menu: React.FC = () => {
         }
 
         button:hover {
-          animation: ${THEME.ANIMATIONS.PULSE} ;
+          transform: scale(1.1);
         }
 
       `}</style>

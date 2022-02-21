@@ -9,7 +9,8 @@ enum COLORS {
   FONT = "var(--color-font)",
   BORDER = "var(--color-border)",
   DISABLED = "var(--color-disabled)",
-  GRADIENT_BKG = "var(--COMP-GRADIENT-BKG)"
+  GRADIENT_BKG_PORTRAIT = "var(--GRADIENT-BKG-PORTRAIT)",
+  GRADIENT_BKG_LANDSCAPE = "var(--GRADIENT-BKG-LANDSCAPE)",
 }
 
 enum SIZES {
@@ -29,7 +30,6 @@ enum SIZES {
 enum ANIMATIONS {
   LETTER_POP = "var(--anim-letter-pop)",
   FADE_IN = "var(--anim-fadeIn)",
-  FLIP = "var(--anim-flip)",
   PULSE = "var(--anim-pulse)",
   DURATION = "var(--anim-duration)",
   DURATION_MS_INT = 500

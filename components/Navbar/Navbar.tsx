@@ -23,7 +23,7 @@ const Navbar: React.FC = () => {
           height: 100%;
           width: 1.5rem;
 
-          background: ${THEME.COLORS.GRADIENT_BKG};
+          background: ${THEME.COLORS.GRADIENT_BKG_LANDSCAPE};
           color: ${THEME.COLORS.FONT};
         }
 
@@ -42,6 +42,7 @@ const Navbar: React.FC = () => {
             position: relative;
             flex-direction: row;
             width: 100vw;
+            background: ${THEME.COLORS.GRADIENT_BKG_PORTRAIT};
 
             height: ${THEME.SIZES.NAVBAR_HEIGHT};
             max-width: ${THEME.SIZES.GLOBAL_MAX_WIDTH};

@@ -1,24 +1,16 @@
 import React from "react";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
-import Link from "next/link";
 import THEME from "../../styles";
+import SocialMediaLink from "./SocialMediaLink/SocialMediaLink";
 
 const Footer: React.FC = () => {
   return (
     <footer>
-      <Link href="https://github.com/rei-rala" passHref>
-        <a target="_blank" rel="noopener noreferrer">
-          <FontAwesomeIcon icon={faGithub} />
-        </a>
-      </Link>
+      <SocialMediaLink link='https://www.GitHub.com/rei-rala' faIcon={faGithub} />
       <strong>by rei-rala</strong>
-      <Link href="https://www.linkedin.com/in/ramon-irala-220362110/" passHref>
-        <a target="_blank" rel="noopener noreferrer">
-          <FontAwesomeIcon icon={faLinkedin} />
-        </a>
-      </Link>
+      <SocialMediaLink link='https://www.LinkedIn.com/in/ramon-irala-220362110/' faIcon={faLinkedin} />
+
       <style jsx>{`
         footer {
           z-index: 9999;
@@ -32,31 +24,22 @@ const Footer: React.FC = () => {
 
           width: 1.5rem;
           height: 100%;
-          background: ${THEME.COLORS.GRADIENT_BKG};
+          background: ${THEME.COLORS.GRADIENT_BKG_LANDSCAPE};
           color: ${THEME.COLORS.FONT};
 
           font-size: 0.8rem;
         }
 
-        footer a {
-          display: grid;
-          place-items: center;
-          width: 1rem;
-          height: 1rem;
-        }
-        footer a:hover {
-          color: ${THEME.COLORS.SKY};
-        }
         footer strong {
           writing-mode: vertical-lr;
           transform: rotate(180deg);
         }
 
-
         @media screen and (min-height: 476px) {
           footer {
             position: relative;
             flex-direction: row;
+            background: ${THEME.COLORS.GRADIENT_BKG_PORTRAIT};
 
             height: ${THEME.SIZES.FOOTER_HEIGHT};
             width: 100%;
@@ -66,10 +49,6 @@ const Footer: React.FC = () => {
           footer strong {
             writing-mode: horizontal-tb;
             transform: rotate(0);
-          }
-          footer a {
-            height: 1rem;
-            width: 1rem;
           }
         }
       `}</style>
