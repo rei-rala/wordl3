@@ -4,22 +4,36 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane, faDeleteLeft } from "@fortawesome/free-solid-svg-icons";
 
 import THEME from "../../../../styles";
-import { IKeyboardKeyProps } from "../../../../types";
+import { IKeyboardKeyProps, CoincidenceStateType, States } from "../../../../types";
+
+const getBkgColor = (state: CoincidenceStateType) => {
+  return (
+  state === States.EMPTY
+  ? THEME.COLORS.THEME_TERTIARY
+  : state === States.NONE
+  ? THEME.COLORS.DISABLED
+  : state === States.PARTIAL
+  ? THEME.COLORS.WARN
+  : THEME.COLORS.SUCCESS
+  )}
+
+
 
 const KeyboardKey: React.FC<IKeyboardKeyProps> = ({
   keyValue,
   updateGuess,
+  bestCoincidence,
 }) => {
   const isEnter = keyValue === "ENTER";
   const isBackspace = keyValue === "BACKSPACE";
-  const isSpecial = isEnter || isBackspace;
-
+  const bkgColor = getBkgColor(bestCoincidence);
+  
   const handleClick = () => updateGuess(keyValue);
-
+  
   return (
     <button onClick={handleClick}>
       <span>
-        {isSpecial ? (
+        {isEnter || isBackspace ? (
           <FontAwesomeIcon icon={isEnter ? faPaperPlane : faDeleteLeft} />
         ) : (
           keyValue
@@ -32,22 +46,28 @@ const KeyboardKey: React.FC<IKeyboardKeyProps> = ({
           place-items: center;
 
           border: 2px outset ${THEME.COLORS.THEME_SECONDARY};
-          background: ${THEME.COLORS.THEME_TERTIARY};
-          border-radius: 0.5rem;
+          background: ${bkgColor};
+          border-radius: 0.35rem;
 
-          flex: ${isSpecial ? "1.15" : "1"};
+          flex: ${isEnter || isBackspace ? "1.15" : "1"};
 
           font-weight: bold;
-          color: ${THEME.COLORS.FONT};
+          color: ${
+            bestCoincidence === "EMPTY"
+          ? THEME.COLORS.FONT
+          : THEME.COLORS.THEME
+        };
         }
 
         button:hover {
-          background: transparent;
           color: ${isBackspace
           ? THEME.COLORS.ALERT
           : isEnter
             ? THEME.COLORS.SUCCESS
-            : THEME.COLORS.SKY};
+            : bestCoincidence === "EMPTY"
+            ? THEME.COLORS.SKY
+            : THEME.COLORS.THEME
+          };
           border-color: ${isBackspace
           ? THEME.COLORS.ALERT
           : isEnter
@@ -62,7 +82,8 @@ const KeyboardKey: React.FC<IKeyboardKeyProps> = ({
           display: grid;
           place-items: center;
           height: 100%;
-          width: ${isSpecial ? "55%" : "fit-content"};
+          width: ${isEnter || isBackspace ? "55%" : "fit-content"};
+          min-width: ${isEnter || isBackspace ? "2rem" : "1rem"};
           overflow: hidden;
         }
 

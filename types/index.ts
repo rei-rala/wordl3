@@ -11,18 +11,18 @@ export enum States {
   EMPTY = "EMPTY",
 }
 
-export type CoincidenceState = "FULL" | "PARTIAL" | "NONE" | "EMPTY";
+export type CoincidenceStateType = "FULL" | "PARTIAL" | "NONE" | "EMPTY";
 
-export type Coincidence = {
+export type CoincidenceType = {
   [key: number]: {
-    coincidence: CoincidenceState;
+    coincidence: CoincidenceStateType;
     letter: string;
   };
 };
 
 export type StyleByCoincidence = {
   [key: string]: {
-    [key in CoincidenceState]: string;
+    [key in CoincidenceStateType]: string;
   };
 };
 
@@ -40,7 +40,7 @@ export interface IFrameComponentProps {
   currentGuess: string;
   guesses: string[];
   maxTries: number;
-  coincidences: Coincidence[];
+  coincidences: CoincidenceType[];
 }
 
 export interface IGuessComponentProps {
@@ -58,7 +58,7 @@ export interface IWordComponentProps {
   currentGuessIndex: number;
   word: string;
   wordIndex: number;
-  coincidences?: Coincidence;
+  coincidences?: CoincidenceType;
 }
 
 export interface ILetterComponentProps {
@@ -73,10 +73,11 @@ export interface ILetterComponentProps {
 export interface IKeyboardKeyProps {
   keyValue: string;
   updateGuess: (arg0: string) => void;
+  bestCoincidence: CoincidenceStateType;  
 }
 
 export interface IKeyboardProps {
-  coincidences: Coincidence[],
+  coincidences: CoincidenceType[],
   updateGuess: (arg0: string) => void,
 }
 
@@ -85,7 +86,7 @@ export interface IGameApiResponse {
   wordLength?: number;
   maxTries?: number;
   guesses?: string[];
-  coincidences?: Coincidence[];
+  coincidences?: CoincidenceType[];
   definition?: { meaning: string, word: string };
 }
 

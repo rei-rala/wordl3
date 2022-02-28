@@ -14,6 +14,14 @@ export const TEMP_DICTIONARY: { [key: string]: string } = {
   'PIÑAS': 'Piñano plural',
 }
 
+export const accentReplace = {
+  'Á': 'A',
+  'É': 'E',
+  'Í': 'I',
+  'Ó': 'O',
+  'Ú': 'U',
+}
+
 const WORDS = Object.keys(TEMP_DICTIONARY)
 
 const MAX_TRIES = process.env.MAX_TRIES && !isNaN(+process.env.MAX_TRIES) ? parseInt(process.env.MAX_TRIES) : 6

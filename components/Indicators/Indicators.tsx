@@ -60,7 +60,7 @@ const Indicators: React.FC<IIndicatorsComponentProps> = ({
           gap: 1rem;
 
           border: none;
-          background: ${THEME.COLORS.THEME_SECONDARY};
+          background: hsla(0, 0%, 0%, 0.5);
           color: ${THEME.COLORS.FONT};
           animation: ${divOpen && THEME.ANIMATIONS.FADE_IN};
           display: ${divOpen ? '' : 'none'};

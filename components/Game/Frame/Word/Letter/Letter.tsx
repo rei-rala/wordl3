@@ -46,7 +46,7 @@ const Letter: React.FC<ILetterComponentProps> = ({
           place-items: center;
           height: 100%;
           width: 100%;
-          transition: ${isLastGuess ? THEME.ANIMATIONS.DURATION : ''};
+          transition: transform ${isLastGuess ? THEME.ANIMATIONS.DURATION : ''};
           transition-delay: ${isLastGuess ? `calc(${THEME.ANIMATIONS.DURATION} * ${letterIndex} / 3)` : ''};
         }
         

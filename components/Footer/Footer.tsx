@@ -8,12 +8,12 @@ const Footer: React.FC = () => {
   return (
     <footer>
       <SocialMediaLink link='https://www.GitHub.com/rei-rala' faIcon={faGithub} />
-      <strong>by rei-rala</strong>
+      <strong>rei-rala</strong>
       <SocialMediaLink link='https://www.LinkedIn.com/in/ramon-irala-220362110/' faIcon={faLinkedin} />
 
       <style jsx>{`
         footer {
-          z-index: 9999;
+          z-index: 99999;
           position: fixed;
           right: 0;
 

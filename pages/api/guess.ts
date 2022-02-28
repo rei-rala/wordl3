@@ -5,7 +5,7 @@ import { game, userGame } from "../../resources";
 import { getCoincidences, strToObjParser } from "../../utils";
 import { API_CONFIG } from "../../resources";
 
-import { Coincidence, IGameApiResponse, States } from "../../types";
+import { CoincidenceType, IGameApiResponse, States } from "../../types";
 
 export const config = API_CONFIG
 
@@ -14,7 +14,7 @@ const handler = (req: NextApiRequest, res: NextApiResponse<IGameApiResponse>) =>
     const { data } = req.body;
 
     const parsedGuesses: string[] = strToObjParser(data, []).slice(0, game.maxTries).map((c: string) => c.slice(0, game.word.length).toUpperCase().padEnd(game.word.length, '?'));
-    const coincidences: Coincidence[] = getCoincidences(parsedGuesses, game.word);
+    const coincidences: CoincidenceType[] = getCoincidences(parsedGuesses, game.word);
     const definition: { meaning: string, word: string, win?: boolean } | undefined = {
       word: game.word,
       meaning: game.meaning,

@@ -11,7 +11,7 @@ const Navbar: React.FC = () => {
       <Menu />
       <style jsx>{`
         div {
-          z-index: 9999;
+          z-index: 99999;
           position: fixed;
           left: 0;
 

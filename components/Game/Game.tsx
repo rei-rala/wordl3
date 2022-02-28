@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { Popups } from "../../contexts/PopupsContext";
 import { Keyboard, Loading } from "..";
 import { findWordInDictionary } from "../../resources";
 import { postGuess } from "../../services";
 
-import { Coincidence, GameOver } from "../../types";
+import { CoincidenceType, GameOver } from "../../types";
 import { validateString } from "../../utils";
 
 import Frame from "./Frame/Frame";
@@ -12,9 +13,11 @@ import Indicators from "../Indicators/Indicators";
 import THEME from "../../styles";
 
 const Game: React.FC = () => {
+  const { addSignMessage } = useContext(Popups)
+
   const [maxTries, setMaxTries] = useState(6);
   const [wordLength, setWordLength] = useState(0);
-  const [coincidences, setCoincidences] = useState<Coincidence[]>([]);
+  const [coincidences, setCoincidences] = useState<CoincidenceType[]>([]);
   const [guesses, setGuesses] = useState<string[]>([]);
   const [currentGuess, setCurrentGuess] = useState("");
 
@@ -65,15 +68,16 @@ const Game: React.FC = () => {
         return findWordInDictionary(guess);
       })
       .then((found) => {
+        console.log(found)
         if (found) {
           return submitGuesses([...guesses, guess]);
         }
         throw new Error(
-          `La palabra ${guess} no se encuentra en el diccionario. 🤔`
+          `No encontre "${guess}" en el diccionario 🤔`
         );
       })
       .catch((err) => {
-        setInvalidGuess(err.message);
+        addSignMessage("Error", err.message);
       })
       .finally(() => setIsLoading(false));
   };
