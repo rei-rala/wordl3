@@ -30,10 +30,11 @@ const SIZES = {
 const ANIMATIONS = {
   LETTER_POP: "var(--anim-letter-pop)",
   FADE_IN: "var(--anim-fadeIn)",
+  POPUP_APPEAR: "var(--anim-popup-appear)",
+  SHAKE: "var(--anim-shake)",
   PULSE: "var(--anim-pulse)",
   DURATION: "var(--anim-duration)",
   DURATION_MS_INT: 400,
-  POPUP_APPEAR: "var(--anim-popup-appear)",
 }
 
 

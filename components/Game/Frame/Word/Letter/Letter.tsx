@@ -33,6 +33,9 @@ const Letter: React.FC<ILetterComponentProps> = ({
       <style jsx>{`
         div {
           flex: 1;
+          display:grid;
+          place-items: center;
+
           height: 100%;
           border: 2px inset ${THEME.COLORS.BORDER};
           border-radius: 0.15rem;
@@ -44,8 +47,6 @@ const Letter: React.FC<ILetterComponentProps> = ({
         div span {
           display: grid;
           place-items: center;
-          height: 100%;
-          width: 100%;
           transition: transform ${isLastGuess ? THEME.ANIMATIONS.DURATION : ''};
           transition-delay: ${isLastGuess ? `calc(${THEME.ANIMATIONS.DURATION} * ${letterIndex} / 3)` : ''};
         }
@@ -73,7 +74,7 @@ const Letter: React.FC<ILetterComponentProps> = ({
           }
         }
         
-        @media screen and (min-height: 615px) and (min-width: 600px) {
+        @media screen and (min-height: 700px) and (min-width: 500px) {
           div {
             aspect-ratio: 1;
           }

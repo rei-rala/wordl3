@@ -68,7 +68,6 @@ const Game: React.FC = () => {
         return findWordInDictionary(guess);
       })
       .then((found) => {
-        console.log(found)
         if (found) {
           return submitGuesses([...guesses, guess]);
         }

@@ -53,7 +53,7 @@ export const PopupsContext = (props: any) => {
       );
     };
 
-    refreshInterval = signMessages.length > 0 && !refreshInterval ? setInterval(refresh, 500) : undefined;
+    refreshInterval = signMessages.length > 0 && !refreshInterval ? setInterval(refresh, THEME.ANIMATIONS.DURATION_MS_INT) : undefined;
 
     return () => {
       clearTimeout(refreshInterval!);

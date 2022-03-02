@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext, useMemo } from "react";
 import { IFrameComponentProps } from "../../../types";
 import Word from "./Word/Word";
 import THEME from "../../../styles";
+import { Popups } from "../../../contexts/PopupsContext";
 
 const Frame: React.FC<IFrameComponentProps> = ({
   maxTries,
@@ -10,29 +11,32 @@ const Frame: React.FC<IFrameComponentProps> = ({
   currentGuess,
   coincidences,
 }) => {
+  const { signMessages } = useContext(Popups);
+  const isWrongInput = useMemo(() => signMessages.length !== 0, [signMessages]);
+
   return (
     <main>
-      {
-        maxTries > 0 &&
+      {maxTries > 0 &&
         Array(maxTries)
-          .fill('?')
-          .map((_, wordIndex) => <Word
-            maxTries={maxTries}
-            isCurrentGuess={wordIndex === coincidences.length}
-            isLastGuess={wordIndex === coincidences.length - 1}
-            coincidences={coincidences[wordIndex]}
-            word={
-              guesses[wordIndex]
-                ? guesses[wordIndex]
-                : guesses.length >= wordIndex
+          .fill("?")
+          .map((_, wordIndex) => (
+            <Word
+              isCurrentGuess={wordIndex === coincidences.length}
+              isLastGuess={wordIndex === coincidences.length - 1}
+              coincidences={coincidences[wordIndex]}
+              word={
+                guesses[wordIndex]
+                  ? guesses[wordIndex]
+                  : guesses.length >= wordIndex
                   ? currentGuess.padEnd(wordLength)
-                  : ''.padEnd(wordLength)
-            }
-            currentGuessIndex={currentGuess.length - 1}
-            key={`w${wordIndex}`}
-            wordIndex={wordIndex}
-          />)
-      }
+                  : "".padEnd(wordLength)
+              }
+              currentGuessIndex={currentGuess.length - 1}
+              key={`w${wordIndex}`}
+              wordIndex={wordIndex}
+              isWrongInput={isWrongInput}
+            />
+          ))}
       <style jsx>{`
         main {
           display: flex;
@@ -50,8 +54,9 @@ const Frame: React.FC<IFrameComponentProps> = ({
           z-index: 1;
 
           font-weight: bold;
-          font-family: 'Cousine', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+          font-family: "Cousine", -apple-system, BlinkMacSystemFont, Segoe UI,
+            Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans,
+            Helvetica Neue, sans-serif;
         }
 
         @media screen and (min-width: 768px) {
@@ -59,7 +64,6 @@ const Frame: React.FC<IFrameComponentProps> = ({
             width: 100%;
           }
         }
-
       `}</style>
     </main>
   );

@@ -1,15 +1,13 @@
 import { States } from "../types"
 
-export const strToObjParser = (localStorageItem: string | null | undefined, alternative: any = {}) => {
+export const strToObjParser = (localStorageItem: string | null, alternative: any = {}) => {
   let lsItem: any
 
   try {
     lsItem = JSON.parse(localStorageItem ?? JSON.stringify(alternative))
   } catch (error) {
-    console.log('-------------------------------\nError parsing localstorage item\n-------------------------------')
-    console.log(error)
-    console.log('-------------------------------\nError parsing localstorage item\n-------------------------------')
-
+    // Error @ parsing the string
+    // console.log(error)
     lsItem = alternative
   }
 

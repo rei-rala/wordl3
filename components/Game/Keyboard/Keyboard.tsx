@@ -1,25 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, {  useMemo } from "react";
 import { KEYBOARD_ROWS } from "../../../resources";
 import THEME from "../../../styles";
-import { CoincidenceStateType, IKeyboardProps, States } from "../../../types";
+import { CoincidenceStateType, CoincidenceType, IKeyboardProps, States } from "../../../types";
 import KeyboardKey from "./KeyboardKey/KeyboardKey";
 
 type CoincidenceVariantType = { [key: string]: CoincidenceStateType };
 
-const coincidenceValues = {
-  [States.FULL]: 3,
-  [States.PARTIAL]: 2,
-  [States.NONE]: 1,
-  [States.EMPTY]: 0,
-};
+const updateCoincidences = (lastCoincidences: CoincidenceType[]) => {
+    const coincidenceValues = {
+      [States.FULL]: 3,
+      [States.PARTIAL]: 2,
+      [States.NONE]: 1,
+      [States.EMPTY]: 0,
+    };
 
-const Keyboard: React.FC<IKeyboardProps> = ({ coincidences, updateGuess }) => {
-  const [bestCoincidences, setBestCoincidences] = useState<CoincidenceVariantType>({});
-
-  useEffect(() => {
     let temp: CoincidenceVariantType = {};
-
-    coincidences.forEach(coincidence => {
+    
+    lastCoincidences.forEach(coincidence => {
       for (let letterIndex in coincidence) {
         let c = coincidence[letterIndex];
         
@@ -34,8 +31,12 @@ const Keyboard: React.FC<IKeyboardProps> = ({ coincidences, updateGuess }) => {
         }
       }
     })
-    setBestCoincidences(temp);
-  }, [coincidences]);
+    return temp;
+}
+
+
+const Keyboard: React.FC<IKeyboardProps> = ({ coincidences, updateGuess }) => {
+  const bestCoincidences = useMemo(()=>  updateCoincidences(coincidences), [coincidences]);
 
   return (
     <section>
@@ -71,7 +72,7 @@ const Keyboard: React.FC<IKeyboardProps> = ({ coincidences, updateGuess }) => {
           flex-flow: row nowrap;
           justify-content: space-evenly;
           
-          height: 28%;
+          height: 26%;
         }
 
         @media screen and (min-height: 476px) and (orientation: portrait) {

@@ -8,19 +8,14 @@ import { ISocialMediaProps } from "../../../types";
 const SocialMediaLink: React.FC<ISocialMediaProps> = ({ link, faIcon }) => {
   const socialMediaName = link.split('.')[1] ?? 'red social';
 
-  const openLink = () => { confirm(`Confirmar ir a mi ${socialMediaName}?\nSe abrira en una nueva pestaña.`) && window.open(link, '_blank', 'noreferrer') };
+  const openLink = () => { confirm(`Confirmar ir a mi perfil ${socialMediaName}?\nSe abrira en una nueva pestaña.`) && window.open(link, '_blank', 'noreferrer') };
 
   return (
-    <button onClick={openLink} >
+    <button onClick={openLink} aria-label={`Visitar mi perfil de ${socialMediaName} en ${link}`} >
       <FontAwesomeIcon icon={faIcon ?? faLink} />
 
       <style jsx>{`
        button {
-          display: grid;
-          place-items: center;
-          border: none;
-          padding: 0;
-          background: transparent;
           width: 1rem;
           height: 1rem;
           color: ${THEME.COLORS.FONT};

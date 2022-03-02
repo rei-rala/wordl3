@@ -9,18 +9,13 @@ const Gamerules: React.FC = () => {
   const TEMPFUNCTION = () => { localStorage.removeItem('guesses')}
   
   return (
-    <button onClick={TEMPFUNCTION}>
+    <button onClick={TEMPFUNCTION} aria-label={'Temporalmente resetear intentos. Posteriormente mostrara reglas.'}>
       <FontAwesomeIcon icon={faCircleQuestion} />
 
       <style jsx>{`
         button {
-          display: grid;
-          place-items: center;
-          padding: 0;
           width: 1rem;
           height: 1rem;
-          background-color: transparent;
-          border: none;
           color: ${THEME.COLORS.FONT};
         }
 

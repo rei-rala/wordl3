@@ -31,7 +31,7 @@ const KeyboardKey: React.FC<IKeyboardKeyProps> = ({
   const handleClick = () => updateGuess(keyValue);
   
   return (
-    <button onClick={handleClick}>
+    <button onClick={handleClick} aria-label={`Ingresar tecla ${isEnter || isBackspace ? 'especial' : ''} ${keyValue}`}>
       <span>
         {isEnter || isBackspace ? (
           <FontAwesomeIcon icon={isEnter ? faPaperPlane : faDeleteLeft} />
@@ -42,14 +42,11 @@ const KeyboardKey: React.FC<IKeyboardKeyProps> = ({
 
       <style jsx>{`
         button {
-          display: grid;
-          place-items: center;
+          flex: ${isEnter || isBackspace ? "1.15" : "1"};
 
-          border: 2px outset ${THEME.COLORS.THEME_SECONDARY};
+          border: 2px outset ${THEME.COLORS.BORDER};
           background: ${bkgColor};
           border-radius: 0.35rem;
-
-          flex: ${isEnter || isBackspace ? "1.15" : "1"};
 
           font-weight: bold;
           color: ${
@@ -68,7 +65,7 @@ const KeyboardKey: React.FC<IKeyboardKeyProps> = ({
             ? THEME.COLORS.SKY
             : THEME.COLORS.THEME
           };
-          border-color: ${isBackspace
+          border: 2px solid ${isBackspace
           ? THEME.COLORS.ALERT
           : isEnter
             ? THEME.COLORS.SUCCESS
@@ -83,7 +80,6 @@ const KeyboardKey: React.FC<IKeyboardKeyProps> = ({
           place-items: center;
           height: 100%;
           width: ${isEnter || isBackspace ? "55%" : "fit-content"};
-          min-width: ${isEnter || isBackspace ? "2rem" : "1rem"};
           overflow: hidden;
         }
 

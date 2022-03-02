@@ -11,7 +11,7 @@ const Menu: React.FC = () => {
   const { darkTheme, toggleDarkTheme } = useDarkTheme();
 
   return (
-    <button onClick={toggleDarkTheme}>
+    <button onClick={toggleDarkTheme} aria-label={`${darkTheme ? 'Activar' : 'Desactivar'} tema oscuro.`}>
       {
         darkTheme
           ? <FontAwesomeIcon icon={faSun} />
@@ -19,15 +19,8 @@ const Menu: React.FC = () => {
       }
       <style jsx>{`
         button {
-          display: grid;
-          place-items: center;
-          padding: 0;
           width: 1rem;
           height: 1rem;
-
-          background-color: transparent;
-          border: none;
-
           color: ${darkTheme ? THEME.COLORS.WARN : THEME.COLORS.SKY};
         }
 

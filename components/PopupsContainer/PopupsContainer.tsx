@@ -15,6 +15,7 @@ const Popup: React.FC<{ message: string }> = ({ message }) => {
 
           height: 0;
           border: none;
+          margin: 0.25rem;
           animation: ${THEME.ANIMATIONS.POPUP_APPEAR};
           max-width: 80vw;
           background: ${THEME.COLORS.FONT};
@@ -43,7 +44,6 @@ const PopupsContainer: React.FC = () => {
           display: flex;
           flex-direction: column;
           align-items: center;
-          gap: 0.5rem;
 
           text-align: center;
           z-index: 9999;
