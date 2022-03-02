@@ -1,3 +1,6 @@
+// Disabled as this is a single page app
+/* eslint-disable @next/next/no-page-custom-font */
+
 import React from "react";
 import type { NextPage } from "next";
 import Head from "next/head";
@@ -11,11 +14,7 @@ const Home: NextPage = () => {
     <>
       <Head>
         <title>Wordl3</title>
-        <meta name="description" content="Wordle clone - A d̶a̶i̶l̶y̶ word game" />
-        <link rel="icon" href="/favicon.ico" />
-        <link rel="preconnect" href="https://fonts.gstatic.com/" />
-      </Head>
-      
+      </Head>      
       <Navbar />
       <Game />
       <PopupsContainer />
