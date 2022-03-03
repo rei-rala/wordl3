@@ -1,5 +1,5 @@
-import { DICTIONARY } from "./dictionary";
-import { randomArrayItem } from "../utils";
+import DICTIONARY from "./dictionary";
+import { randomArrayItemIndex } from "../utils";
 
 export const KEYBOARD_ROWS = [
   "qwertyuiop".toUpperCase().split(''),
@@ -7,22 +7,24 @@ export const KEYBOARD_ROWS = [
   ["ENTER", ..."zxcvbnm".toUpperCase().split(''), "BACKSPACE"],
 ]
 
-export const TEMP_DICTIONARY: { [key: string]: string } = {
-  'PERRO': 'Perruno plural',
-  'GATOS': 'Gatuno plural',
-  'PATOS': 'Patuno plural',
-  'PIÑAS': 'Piñano plural',
+const replaceAccents = (word: string) => {
+  const accentsReplaceUpperCase = {
+    'Á': 'A',
+    'É': 'E',
+    'Í': 'I',
+    'Ó': 'O',
+    'Ú': 'U',
+  }
+
+  let tempWord = word
+
+  for (const [key, value] of Object.entries(accentsReplaceUpperCase)) {
+    tempWord.replace(new RegExp(key, 'g'), value)
+  }
+
+  return tempWord
 }
 
-export const accentReplace = {
-  'Á': 'A',
-  'É': 'E',
-  'Í': 'I',
-  'Ó': 'O',
-  'Ú': 'U',
-}
-
-const WORDS = Object.keys(TEMP_DICTIONARY)
 
 const MAX_TRIES = process.env.MAX_TRIES && !isNaN(+process.env.MAX_TRIES) ? parseInt(process.env.MAX_TRIES) : 6
 
@@ -35,14 +37,15 @@ export const API_CONFIG = {
 };
 
 
-const randomWord = randomArrayItem(WORDS);
-const selected = { word: randomWord ?? 'err=(', meaning: TEMP_DICTIONARY[randomWord] ?? 'err=(' };
+const wordIndex = randomArrayItemIndex(DICTIONARY);
+const selected = { word: DICTIONARY[wordIndex] };
 
-export const game = { word: selected.word, meaning: selected.meaning, maxTries: MAX_TRIES };
-export const userGame = { wordLength: game.word.length, maxTries: game.maxTries }
+export const game = { word: selected.word, maxTries: MAX_TRIES };
+export const userGame = { wordLength: game.word.length, maxTries: game.maxTries, wordIndex }
 
-export const findWordInDictionary = (word: string) => {
-  const meaning = TEMP_DICTIONARY[word]
+export const findWordInDictionary = (guessWord: string) => {
+  const foundWord = DICTIONARY.find(word => word === guessWord)
+  const word = foundWord ? replaceAccents(guessWord) : undefined
 
-  return meaning ? ({ word, meaning: meaning }) : undefined
+  return word
 }

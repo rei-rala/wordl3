@@ -6,16 +6,18 @@ const Indicators: React.FC<IIndicatorsComponentProps> = ({
   gameOver,
   invalidGuess,
   error,
+  wordIndex
 }) => {
   const [divOpen, setDivOpen] = useState(false);
   const closediv = () => setDivOpen(false);
+  const RAE_Link = gameOver.definition?.word ? `https://dle.rae.es/${gameOver.definition?.word}`: undefined
 
   const openLink = () => {
     confirm(
       `Visitar referencia de la palabra ${gameOver.definition?.word ?? 'ERROR'} en el sitio de la RAE?\nSe abrira en una nueva pestaña.`
     ) &&
       window.open(
-        `https://dle.rae.es/${gameOver.definition?.word ?? 404}`,
+        RAE_Link,
         "_blank",
         "noreferrer"
       );
@@ -35,17 +37,17 @@ const Indicators: React.FC<IIndicatorsComponentProps> = ({
         <legend>
           {(gameOver.state && (
             <>
-              Palabra:{" "}
-              <button onClick={openLink}>{gameOver.definition?.word}</button>{" "}
+              {`Palabra: ${gameOver.definition?.word}`} <span>#{wordIndex}</span>
             </>
           )) ||
             (error.foundError && <> Error! </>) ||
             (invalidGuess && <> Ingreso invalido! </>)}
         </legend>
         <p>
-          {(gameOver.definition?.meaning && (
+          {(gameOver.definition?.word && (
             <>
-              <strong>Definicion:</strong> {gameOver.definition?.meaning}
+              <strong> Buscar definicion en sitio de la RAE </strong>
+              <button onClick={openLink}>{RAE_Link}</button>
             </>
           )) ||
             (error.foundError && error.message) ||
@@ -103,7 +105,14 @@ const Indicators: React.FC<IIndicatorsComponentProps> = ({
           justify-content: space-around;
           margin: auto;
           color: ${THEME.COLORS.ALERT};
-          padding: 0.25rem 0.75rem;
+          padding: 0.5rem 0.75rem;
+          font-size: 1.2rem;
+        }
+
+        section legend span {
+          margin: auto;
+          font-size: 0.8rem;
+          opacity: 0.4;
         }
 
         section fieldset {
@@ -117,9 +126,9 @@ const Indicators: React.FC<IIndicatorsComponentProps> = ({
         }
 
         section button {
+          margin: auto;
           color: ${THEME.COLORS.SKY};
           font-weight: bold;
-          text-transform: capitalize;
         }
 
         section button:hover {

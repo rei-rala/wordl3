@@ -15,7 +15,7 @@ const handler = (req: NextApiRequest, res: NextApiResponse<IGameApiResponse>) =>
 
     const parsedGuesses: string[] = strToObjParser(data, []).slice(0, game.maxTries).map((c: string) => c.slice(0, game.word.length).toUpperCase().padEnd(game.word.length, '?'));
     const coincidences: CoincidenceType[] = getCoincidences(parsedGuesses, game.word);
-    let definition: { meaning: string, word: string, win?: boolean } | undefined;
+    let definition: { word: string, meaning?: string, win?: boolean } | undefined;
 
     const winCondition = parsedGuesses.some((guess: string) => guess === game.word);
     const loseCondition = parsedGuesses.length >= game.maxTries;
@@ -24,7 +24,6 @@ const handler = (req: NextApiRequest, res: NextApiResponse<IGameApiResponse>) =>
       definition = {
         win: winCondition,
         word: game.word,
-        meaning: game.meaning,
       }
     }
 

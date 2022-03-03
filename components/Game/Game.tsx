@@ -20,6 +20,7 @@ const Game: React.FC = () => {
   const [coincidences, setCoincidences] = useState<CoincidenceType[]>([]);
   const [guesses, setGuesses] = useState<string[]>([]);
   const [currentGuess, setCurrentGuess] = useState("");
+  const [wordIndex, setWordIndex] = useState(-1);
 
   // TODO: Change logic for loading state to array of loading-reasons
   const [isLoading, setIsLoading] = useState(false);
@@ -37,12 +38,13 @@ const Game: React.FC = () => {
     return new Promise((res) => res(setIsLoading(true)))
       .then(() => postGuess(guesses))
       .catch((err) => setError(err))
-      .then(({ wordLength, maxTries, coincidences, guesses, definition }) => {
+      .then(({ wordLength, maxTries, coincidences, guesses, definition, wordIndex }) => {
         setCurrentGuess("");
         setMaxTries(maxTries);
         setGuesses(guesses);
         setCoincidences(coincidences);
         setWordLength(wordLength);
+        setWordIndex(wordIndex)
 
         localStorage.setItem("guesses", JSON.stringify(guesses));
         typeof definition.win === "boolean" &&
@@ -151,6 +153,7 @@ const Game: React.FC = () => {
         gameOver={gameOver}
         error={error}
         invalidGuess={invalidGuess}
+        wordIndex={wordIndex}
       />
       <Keyboard coincidences={coincidences} updateGuess={updateGuess} />
 

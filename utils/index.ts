@@ -14,8 +14,8 @@ export const strToObjParser = (localStorageItem: string | null, alternative: any
   return lsItem
 }
 
-export const randomArrayItem = (arr: any[]) => {
-  return arr[Math.floor(Math.random() * arr.length)];
+export const randomArrayItemIndex = (arr: any[]) => {
+  return Math.floor(Math.random() * arr.length);
 }
 
 export const getCoincidences = (strArray: string[] = [], target: string) => {

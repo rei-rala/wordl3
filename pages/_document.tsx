@@ -10,23 +10,6 @@ export default function Document() {
         <meta name="keywords" content="Keywords" />
         <meta name="theme-color" content="#1a1a1a" />
 
-        <link rel="manifest" href="/manifest.json" />
-        <link rel="icon" href="/favicon.ico" />
-
-        <link
-          href="/icons/favicon-16x16.png"
-          rel="icon"
-          type="image/png"
-          sizes="16x16"
-        />
-        <link
-          href="/icons/favicon-32x32.png"
-          rel="icon"
-          type="image/png"
-          sizes="32x32"
-        />
-        <link rel="apple-touch-icon" href="/apple-icon.png" />
-
         <link
           rel="preload"
           href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@500&family=Cousine:wght@400;700&family=Roboto+Mono&display=swap"
@@ -36,6 +19,23 @@ export default function Document() {
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@500&family=Cousine:wght@400;700&family=Roboto+Mono&display=swap"
         />
+
+        <link rel="manifest" href="/manifest.json" />
+        <link rel="icon" href="/favicon.ico" />
+
+        <link
+          href="/favicon-16x16.png"
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+        />
+        <link
+          href="/favicon-32x32.png"
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+        />
+        <link rel="apple-touch-icon" href="/apple-icon.png" />
       </Head>
       <body>
         <Main />
