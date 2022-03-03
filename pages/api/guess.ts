@@ -5,7 +5,7 @@ import { game, userGame } from "../../resources";
 import { getCoincidences, strToObjParser } from "../../utils";
 import { API_CONFIG } from "../../resources";
 
-import { CoincidenceType, IGameApiResponse, States } from "../../types";
+import { CoincidenceType, IGameApiResponse } from "../../types";
 
 export const config = API_CONFIG
 
@@ -15,24 +15,20 @@ const handler = (req: NextApiRequest, res: NextApiResponse<IGameApiResponse>) =>
 
     const parsedGuesses: string[] = strToObjParser(data, []).slice(0, game.maxTries).map((c: string) => c.slice(0, game.word.length).toUpperCase().padEnd(game.word.length, '?'));
     const coincidences: CoincidenceType[] = getCoincidences(parsedGuesses, game.word);
-    const definition: { meaning: string, word: string, win?: boolean } | undefined = {
-      word: game.word,
-      meaning: game.meaning,
-    }
+    let definition: { meaning: string, word: string, win?: boolean } | undefined;
 
-    if (parsedGuesses.length > game.maxTries) {
-      definition.win = false;
-    } else {
-      for (let coincidence of coincidences) {
-        const fullWord = Object.values(coincidence).every((value) => value.coincidence === States.FULL)
-        if (fullWord) {
-          definition.win = true;
-          break
-        }
+    const winCondition = parsedGuesses.some((guess: string) => guess === game.word);
+    const loseCondition = parsedGuesses.length >= game.maxTries;
+
+    if (winCondition || loseCondition) {
+      definition = {
+        win: winCondition,
+        word: game.word,
+        meaning: game.meaning,
       }
     }
 
-    res.status(200).json({ status: "success", ...game, ...userGame, coincidences, guesses: parsedGuesses, definition });
+    res.status(200).json({ status: "success", ...userGame, coincidences, guesses: parsedGuesses, definition });
     return;
   }
   res.status(400).json({ status: "bad request" });
