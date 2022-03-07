@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { IIndicatorsComponentProps } from "../../types";
 import THEME from "../../styles";
+import { userGame } from "../../resources/gameConfig";
+import { timeStampToDate } from "../../utils";
 
 const Indicators: React.FC<IIndicatorsComponentProps> = ({
   gameOver,
@@ -8,6 +10,7 @@ const Indicators: React.FC<IIndicatorsComponentProps> = ({
   error,
   wordIndex
 }) => {
+  const [nextWordInterval, setNextWordInterval] = useState<number | null>(null);
   const [divOpen, setDivOpen] = useState(false);
   const closediv = () => setDivOpen(false);
   const RAE_Link = gameOver.definition?.word ? `https://dle.rae.es/${gameOver.definition?.word}`: undefined
@@ -22,6 +25,21 @@ const Indicators: React.FC<IIndicatorsComponentProps> = ({
         "noreferrer"
       );
   };
+  
+  useEffect(() => {
+    let nextWordIntervalRefresh: NodeJS.Timeout | undefined
+    
+    if (gameOver.definition && userGame.nextDay) {
+      nextWordIntervalRefresh = setInterval(() => {
+      setNextWordInterval(userGame.nextDay - Date.now().valueOf() );
+      }, 1000);
+    }
+
+    return ()=> {
+      nextWordIntervalRefresh && clearInterval(nextWordIntervalRefresh);
+    }
+  }, [gameOver]);
+
 
   useEffect(() => {
     setDivOpen(gameOver.state || error.foundError || !!invalidGuess);
@@ -48,6 +66,8 @@ const Indicators: React.FC<IIndicatorsComponentProps> = ({
             <>
               <strong> Buscar definicion en sitio de la RAE </strong>
               <button onClick={openLink}>{RAE_Link}</button>
+              <hr />
+              {nextWordInterval && `Proxima palabra en ${timeStampToDate(nextWordInterval).TIME}`}
             </>
           )) ||
             (error.foundError && error.message) ||

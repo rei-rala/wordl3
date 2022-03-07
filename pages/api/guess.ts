@@ -1,13 +1,18 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
-import { game, userGame } from "../../resources";
+import { game, userGame } from "../../resources/gameConfig";
 
 import { getCoincidences, strToObjParser } from "../../utils";
-import { API_CONFIG } from "../../resources";
 
 import { CoincidenceType, IGameApiResponse } from "../../types";
 
-export const config = API_CONFIG
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: "1mb",
+    },
+  },
+};
 
 const handler = (req: NextApiRequest, res: NextApiResponse<IGameApiResponse>) => {
   if (req.method === "POST") {

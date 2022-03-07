@@ -1,4 +1,30 @@
 import { States } from "../types"
+import DICTIONARY from "../resources/constants"
+
+export const KEYBOARD_ROWS = [
+  "qwertyuiop".toUpperCase().split(''),
+  "asdfghjklñ".toUpperCase().split(''),
+  ["ENTER", ..."zxcvbnm".toUpperCase().split(''), "BACKSPACE"],
+]
+
+
+const replaceAccents = (word: string) => {
+  const accentsReplaceUpperCase = {
+    'Á': 'A',
+    'É': 'E',
+    'Í': 'I',
+    'Ó': 'O',
+    'Ú': 'U',
+  }
+
+  let tempWord = word
+
+  for (const [key, value] of Object.entries(accentsReplaceUpperCase)) {
+    tempWord.replace(new RegExp(key, 'g'), value)
+  }
+
+  return tempWord
+}
 
 export const strToObjParser = (localStorageItem: string | null, alternative: any = {}) => {
   let lsItem: any
@@ -42,6 +68,13 @@ export const getCoincidences = (strArray: string[] = [], target: string) => {
   });
 };
 
+export const findWordInDictionary = (guessWord: string) => {
+  const foundWord = DICTIONARY.find(word => word === guessWord)
+  const word = foundWord ? replaceAccents(guessWord) : undefined
+  
+  return word
+}
+
 export const validateString = async (guess: string, length: number, regex: RegExp) => {
   let error: string | undefined;
 
@@ -57,3 +90,32 @@ export const validateString = async (guess: string, length: number, regex: RegEx
 
   return { error, guess };
 };
+
+export const timeStampToDate = (timestamp: number) => {
+  const date = new Date(timestamp);
+  const monthNumber = date.getMonth() + 1;
+  const dayNumber = date.getDate();
+  const hourNumber = date.getHours();
+  const minuteNumber = date.getMinutes();
+  const secondNumber = date.getSeconds();
+  
+  const YEAR = date.getFullYear().toString();
+  const MONTH = monthNumber < 10 ? `0${monthNumber}` : monthNumber;
+  const DAY = dayNumber < 10 ? `0${dayNumber}` : dayNumber;
+  const HOUR = hourNumber < 10 ? `0${hourNumber}` : hourNumber;
+  const MINUTES = minuteNumber < 10 ? `0${minuteNumber}` : minuteNumber;
+  const SECONDS = secondNumber < 10 ? `0${secondNumber}` : secondNumber;
+
+
+  return {
+    FULL: `${YEAR}-${MONTH}-${DAY} ${HOUR}:${MINUTES}:${SECONDS}`,
+    DATE: `${YEAR}-${MONTH}-${DAY}`,
+    TIME: `${HOUR}:${MINUTES}:${SECONDS}`,
+    YEAR,
+    MONTH,
+    DAY,
+    HOUR,
+    MINUTES,
+    SECONDS,
+  }
+}

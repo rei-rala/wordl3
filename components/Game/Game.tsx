@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Popups } from "../../contexts/PopupsContext";
 import { Keyboard, Loading } from "..";
-import { findWordInDictionary } from "../../resources";
+import { findWordInDictionary } from "../../utils";
 import { postGuess } from "../../services";
 
 import { CoincidenceType, GameOver } from "../../types";

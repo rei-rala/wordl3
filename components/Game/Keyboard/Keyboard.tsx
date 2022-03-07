@@ -1,6 +1,6 @@
 import React, {  useMemo } from "react";
-import { KEYBOARD_ROWS } from "../../../resources";
 import THEME from "../../../styles";
+import { KEYBOARD_ROWS } from "../../../utils";
 import { CoincidenceStateType, CoincidenceType, IKeyboardProps, States } from "../../../types";
 import KeyboardKey from "./KeyboardKey/KeyboardKey";
 
