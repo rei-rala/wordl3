@@ -10,8 +10,6 @@ import { postGuess } from "../../services";
 import { CoincidenceType, GameOver } from "../../types";
 
 
-import THEME from "../../styles";
-
 const Game: React.FC = () => {
   const { addSignMessage } = useContext(Popups)
 

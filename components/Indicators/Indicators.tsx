@@ -69,9 +69,9 @@ const Indicators: React.FC<IIndicatorsComponentProps> = ({
           )) ||
             (error.foundError && <p>{error.message}</p>)}
 
-          {nextWordInterval &&  <span>Proxima palabra en <strong>{timeStampToDate(nextWordInterval).TIME}</strong></span>}
+          {nextWordInterval &&  <span>Proxima palabra en <fieldset>{timeStampToDate(nextWordInterval).TIME}</fieldset></span>}
         <i>
-          Toca en la pantalla para cerrar
+          Toca fuera del cuadro para cerrarlo.
         </i>
       </fieldset>
 
@@ -90,7 +90,7 @@ const Indicators: React.FC<IIndicatorsComponentProps> = ({
           gap: 1rem;
 
           border: none;
-          background: hsla(0, 0%, 0%, 0.5);
+          background: hsla(0, 0%, 0%, 0.75);
           color: ${THEME.COLORS.FONT};
           animation: ${divOpen && THEME.ANIMATIONS.FADE_IN};
           display: ${divOpen ? "" : "none"};
@@ -102,14 +102,14 @@ const Indicators: React.FC<IIndicatorsComponentProps> = ({
         section h2 {
           font-size: 1.5rem;
           font-weigth: bold;
-          color: ${THEME.COLORS.THEME_SECONDARY};
+          color: ${gameOver.definition?.win ? THEME.COLORS.SUCCESS :THEME.COLORS.ALERT};
         }
 
         section fieldset,
         section legend {
           display: flex;
           background-color: ${THEME.COLORS.THEME};
-          border: 2px outset ${THEME.COLORS.ALERT};
+          border: 2px outset ${gameOver.definition?.win ? THEME.COLORS.SUCCESS :THEME.COLORS.ALERT};
           border-radius: 10px;
           padding: 0.5rem 1rem;
           min-width: 10rem;
@@ -118,7 +118,7 @@ const Indicators: React.FC<IIndicatorsComponentProps> = ({
         section legend {
           justify-content: space-around;
           margin: auto;
-          color: ${THEME.COLORS.ALERT};
+          color: ${gameOver.definition?.win ? THEME.COLORS.SUCCESS :THEME.COLORS.ALERT};
           padding: 0.5rem 0.75rem;
           font-size: 1.2rem;
         }
@@ -135,8 +135,16 @@ const Indicators: React.FC<IIndicatorsComponentProps> = ({
         }
 
         section i {
-          margin: 0.2rem 0;
           color: ${THEME.COLORS.BORDER};
+        }
+
+        section span fieldset {
+          width: 80%;
+          margin: 0.5rem auto;
+          padding: 0.25rem;
+          border: 2px inset ${THEME.COLORS.THEME_TERTIARY};
+          font-family: monospace;
+          font-size: 1.5rem;
         }
 
         section button {

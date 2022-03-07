@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction } from "react";
 import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 
 
-export type GameOver = { state: boolean, message?: string, definition?: { word: string, meaning: string } }
+export type GameOver = { state: boolean, message?: string, definition?: { win?:boolean, word: string, meaning?: string } }
 
 export enum States {
   FULL = "FULL",
