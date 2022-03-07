@@ -28,7 +28,6 @@ export type StyleByCoincidence = {
 
 export interface IIndicatorsComponentProps {
   gameOver: GameOver,
-  invalidGuess: string | undefined,
   wordIndex: number,
   error: {
     foundError: boolean,

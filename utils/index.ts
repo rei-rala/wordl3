@@ -26,11 +26,11 @@ const replaceAccents = (word: string) => {
   return tempWord
 }
 
-export const strToObjParser = (localStorageItem: string | null, alternative: any = {}) => {
+export const strToObjParser = (jsonString: string | null, alternative: any = {}) => {
   let lsItem: any
 
   try {
-    lsItem = JSON.parse(localStorageItem ?? JSON.stringify(alternative))
+    lsItem = JSON.parse(jsonString!)
   } catch (error) {
     // Error @ parsing the string
     // console.log(error)
@@ -100,6 +100,7 @@ export const timeStampToDate = (timestamp: number) => {
   const secondNumber = date.getSeconds();
   
   const YEAR = date.getFullYear().toString();
+  const YEAR_SHORT = YEAR.slice(2);
   const MONTH = monthNumber < 10 ? `0${monthNumber}` : monthNumber;
   const DAY = dayNumber < 10 ? `0${dayNumber}` : dayNumber;
   const HOUR = hourNumber < 10 ? `0${hourNumber}` : hourNumber;
@@ -112,6 +113,7 @@ export const timeStampToDate = (timestamp: number) => {
     DATE: `${YEAR}-${MONTH}-${DAY}`,
     TIME: `${HOUR}:${MINUTES}:${SECONDS}`,
     YEAR,
+    YEAR_SHORT,
     MONTH,
     DAY,
     HOUR,

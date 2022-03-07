@@ -6,44 +6,41 @@ import { timeStampToDate } from "../../utils";
 
 const Indicators: React.FC<IIndicatorsComponentProps> = ({
   gameOver,
-  invalidGuess,
   error,
-  wordIndex
+  wordIndex,
 }) => {
   const [nextWordInterval, setNextWordInterval] = useState<number | null>(null);
   const [divOpen, setDivOpen] = useState(false);
+  
   const closediv = () => setDivOpen(false);
-  const RAE_Link = gameOver.definition?.word ? `https://dle.rae.es/${gameOver.definition?.word}`: undefined
+  const nullifyClickAction = (event: React.SyntheticEvent ) => event.stopPropagation(); 
+  const RAE_Link = gameOver.definition?.word ? `https://dle.rae.es/${gameOver.definition?.word}` : undefined;
 
   const openLink = () => {
     confirm(
-      `Visitar referencia de la palabra ${gameOver.definition?.word ?? 'ERROR'} en el sitio de la RAE?\nSe abrira en una nueva pestaña.`
-    ) &&
-      window.open(
-        RAE_Link,
-        "_blank",
-        "noreferrer"
-      );
+      `Visitar referencia de la palabra ${
+        gameOver.definition?.word ?? "ERROR"
+      } en el sitio de la RAE?\nSe abrira en una nueva pestaña.`
+    ) && window.open(RAE_Link, "_blank", "noreferrer");
   };
-  
+
   useEffect(() => {
-    let nextWordIntervalRefresh: NodeJS.Timeout | undefined
-    
+    let nextWordIntervalRefresh: NodeJS.Timeout | undefined;
+
     if (gameOver.definition && userGame.nextDay) {
       nextWordIntervalRefresh = setInterval(() => {
-      setNextWordInterval(userGame.nextDay - Date.now().valueOf() );
+        setNextWordInterval(userGame.nextDay - Date.now().valueOf());
       }, 1000);
     }
 
-    return ()=> {
+    return () => {
       nextWordIntervalRefresh && clearInterval(nextWordIntervalRefresh);
-    }
+    };
   }, [gameOver]);
 
-
   useEffect(() => {
-    setDivOpen(gameOver.state || error.foundError || !!invalidGuess);
-  }, [gameOver, error, invalidGuess]);
+    setDivOpen(gameOver.state || error.foundError);
+  }, [gameOver, error]);
 
   return (
     <section onClick={closediv}>
@@ -51,34 +48,31 @@ const Indicators: React.FC<IIndicatorsComponentProps> = ({
         <h2>{gameOver.message ?? error.message}</h2>
       )}
 
-      <fieldset>
+      <fieldset onClick={nullifyClickAction}>
         <legend>
           {(gameOver.state && (
             <>
-              {`Palabra: ${gameOver.definition?.word}`} <span>#{wordIndex}</span>
+              {`Palabra: ${gameOver.definition?.word}`}{" "}
+              <span>#{wordIndex}</span>
             </>
           )) ||
-            (error.foundError && <> Error! </>) ||
-            (invalidGuess && <> Ingreso invalido! </>)}
+            <> Error! </>
+            }
         </legend>
-        <p>
+        
           {(gameOver.definition?.word && (
-            <>
-              <strong> Buscar definicion en sitio de la RAE </strong>
-              <button onClick={openLink}>{RAE_Link}</button>
+            <p>
+              <span> Buscar definicion en sitio de la RAE </span>
+              <button onClick={openLink} role='link'>{RAE_Link}</button>
               <hr />
-              {nextWordInterval && `Proxima palabra en ${timeStampToDate(nextWordInterval).TIME}`}
-            </>
+            </p>
           )) ||
-            (error.foundError && error.message) ||
-            invalidGuess}
-        </p>
+            (error.foundError && <p>{error.message}</p>)}
 
-        {(gameOver.state || error.foundError) && (
-          <>
-            <i> Toca en la pantalla para cerrar </i>
-          </>
-        )}
+          {nextWordInterval &&  <span>Proxima palabra en <strong>{timeStampToDate(nextWordInterval).TIME}</strong></span>}
+        <i>
+          Toca en la pantalla para cerrar
+        </i>
       </fieldset>
 
       <style jsx>{`
@@ -141,7 +135,7 @@ const Indicators: React.FC<IIndicatorsComponentProps> = ({
         }
 
         section i {
-          margin: 0.25rem;
+          margin: 0.2rem 0;
           color: ${THEME.COLORS.BORDER};
         }
 

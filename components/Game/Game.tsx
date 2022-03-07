@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Popups } from "../../contexts/PopupsContext";
-import { Keyboard, Loading } from "..";
-import { findWordInDictionary } from "../../utils";
+
+import { Loading, Indicators } from "../";
+import { Frame, Keyboard } from "./";
+
+import { findWordInDictionary, validateString } from "../../utils";
 import { postGuess } from "../../services";
 
 import { CoincidenceType, GameOver } from "../../types";
-import { validateString } from "../../utils";
 
-import Frame from "./Frame/Frame";
-import Indicators from "../Indicators/Indicators";
 
 import THEME from "../../styles";
 
@@ -30,9 +30,6 @@ const Game: React.FC = () => {
     foundError: false,
     message: "Unexpected error"
   });
-  const [invalidGuess, setInvalidGuess] = useState<string | undefined>(
-    undefined
-  );
 
   const submitGuesses = async (guesses: string | string[]) => {
     return new Promise((res) => res(setIsLoading(true)))
@@ -47,6 +44,7 @@ const Game: React.FC = () => {
         setWordIndex(wordIndex)
 
         localStorage.setItem("guesses", JSON.stringify(guesses));
+        
         typeof definition.win === "boolean" &&
           setGameOver({
             state: true,
@@ -54,9 +52,7 @@ const Game: React.FC = () => {
             definition,
           });
       })
-      .catch((err) =>
-        err.lastGuessIsInvalid ? setInvalidGuess(err.lastGuess) : setError(err)
-      );
+      .catch(setError);
   };
 
   const preSubmitSteps = async (guess: string) => {
@@ -117,18 +113,6 @@ const Game: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    const invalidGuessTimeout =
-      invalidGuess &&
-      setTimeout(() => {
-        setInvalidGuess(undefined);
-      }, THEME.ANIMATIONS.DURATION_MS_INT);
-
-    return () => {
-      invalidGuessTimeout && clearTimeout(invalidGuessTimeout);
-    };
-  }, [invalidGuess]);
-
-  useEffect(() => {
     guesses.length >= maxTries &&
       setGameOver({ state: true, message: "No has podido ganar esta vez! 😔" });
   }, [maxTries, guesses]);
@@ -152,7 +136,6 @@ const Game: React.FC = () => {
       <Indicators
         gameOver={gameOver}
         error={error}
-        invalidGuess={invalidGuess}
         wordIndex={wordIndex}
       />
       <Keyboard coincidences={coincidences} updateGuess={updateGuess} />
