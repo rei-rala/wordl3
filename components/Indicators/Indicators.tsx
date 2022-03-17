@@ -69,7 +69,7 @@ const Indicators: React.FC<IIndicatorsComponentProps> = ({
           )) ||
             (error.foundError && <p>{error.message}</p>)}
 
-          {nextWordInterval &&  <span>Proxima palabra en <fieldset>{timeStampToDate(nextWordInterval).TIME}</fieldset></span>}
+          {nextWordInterval &&  <span>Proxima palabra en <fieldset>{timeStampToDate(nextWordInterval)!.TIME}</fieldset></span>}
         <i>
           Toca fuera del cuadro para cerrarlo.
         </i>

@@ -18,7 +18,7 @@ const handler = (req: NextApiRequest, res: NextApiResponse<IGameApiResponse>) =>
         const { data } = req.body;
         const { guesses, wordDate } = strToObjParser(data, {});
 
-        const wordDateServer = timeStampToDate(new Date().valueOf()).DATE
+        const wordDateServer = timeStampToDate(new Date().valueOf())!.DATE
         const parsedGuesses: string[] = guesses?.slice(0, game.maxTries).map((c: string) => c.slice(0, game.word.length).toUpperCase().padEnd(game.word.length, '?'));
 
         const coincidences: CoincidenceType[] = wordDateServer !== wordDate ? [] : getCoincidences(parsedGuesses, game.word);
