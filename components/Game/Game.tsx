@@ -30,10 +30,20 @@ const Game: React.FC = () => {
   });
 
   const submitGuesses = async (guesses: string | string[]) => {
-    return new Promise((res) => res(setIsLoading(true)))
-      .then(() => postGuess(guesses))
+    let clientDate: any
+
+    try {
+      clientDate = new Date(localStorage.getItem("wordDate") || '');
+      clientDate = isNaN(clientDate.valueOf()) ? new Date('2000-01-01') : clientDate;
+    } catch {
+      clientDate = new Date('2000-01-01');
+    }
+
+    Promise.resolve()
+      .then(() => setIsLoading(true))
+      .then(() => postGuess(guesses, clientDate))
       .catch((err) => setError(err))
-      .then(({ wordLength, maxTries, coincidences, guesses, definition, wordIndex }) => {
+      .then(({ wordLength, maxTries, coincidences, guesses, definition, wordIndex, wordDate }) => {
         setCurrentGuess("");
         setMaxTries(maxTries);
         setGuesses(guesses);
@@ -42,7 +52,8 @@ const Game: React.FC = () => {
         setWordIndex(wordIndex)
 
         localStorage.setItem("guesses", JSON.stringify(guesses));
-        
+        localStorage.setItem('wordDate', JSON.stringify(wordDate));
+
         typeof definition.win === "boolean" &&
           setGameOver({
             state: true,

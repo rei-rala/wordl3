@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction } from "react";
 import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 
 
-export type GameOver = { state: boolean, message?: string, definition?: { win?:boolean, word: string, meaning?: string } }
+export type GameOver = { state: boolean, message?: string, definition?: { win?: boolean, word: string, meaning?: string } }
 
 export enum States {
   FULL = "FULL",
@@ -73,7 +73,7 @@ export interface ILetterComponentProps {
 export interface IKeyboardKeyProps {
   keyValue: string;
   updateGuess: (arg0: string) => void;
-  bestCoincidence: CoincidenceStateType;  
+  bestCoincidence: CoincidenceStateType;
 }
 
 export interface IKeyboardProps {
@@ -88,6 +88,7 @@ export interface IGameApiResponse {
   guesses?: string[];
   coincidences?: CoincidenceType[];
   definition?: { word: string, meaning?: string, win?: boolean };
+  wordDate?: string;
 }
 
 export interface ISocialMediaProps {
