@@ -81,14 +81,18 @@ export interface IKeyboardProps {
   updateGuess: (arg0: string) => void,
 }
 
-export interface IGameApiResponse {
-  status: string;
-  wordLength?: number;
-  maxTries?: number;
-  guesses?: string[];
-  coincidences?: CoincidenceType[];
+export interface Status {
+    status: string
+}
+
+export interface IGameApiResponse extends Status {
+  wordLength: number;
+  maxTries: number;
+  guesses: string[];
+  coincidences: CoincidenceType[];
   definition?: { word: string, meaning?: string, win?: boolean };
-  wordDate?: string;
+  wordDate: string;
+  wordIndex: number;
 }
 
 export interface ISocialMediaProps {

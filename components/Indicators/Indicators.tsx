@@ -61,11 +61,15 @@ const Indicators: React.FC<IIndicatorsComponentProps> = ({
         </legend>
         
           {(gameOver.definition?.word && (
-            <p>
-              <span> Buscar definicion en sitio de la RAE </span>
-              <button onClick={openLink} role='link'>{RAE_Link}</button>
-              <hr />
-            </p>
+            <>
+                <p>
+                  <span> Buscar definicion en sitio de la RAE </span>
+                  <button onClick={openLink} role='link'>{RAE_Link}</button>
+                </p>
+                <div>
+                    <hr />
+                </div>
+            </>
           )) ||
             (error.foundError && <p>{error.message}</p>)}
 

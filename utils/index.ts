@@ -26,11 +26,15 @@ const replaceAccents = (word: string) => {
     return tempWord
 }
 
-export const strToObjParser = (jsonString: string | null, alternative: any = {}) => {
-    let lsItem: any
+export const strToObjParser: (jsonString: string | null, alternative: any) => typeof alternative = (jsonString, alternative = {}) => {
+    let lsItem: typeof alternative
 
     try {
-        lsItem = JSON.parse(jsonString!)
+        lsItem = JSON.parse(jsonString!) 
+
+        if (typeof lsItem !== typeof alternative) {
+            throw 'Types does not match'
+        }
     } catch (error) {
         // Error @ parsing the string
         // console.log(error)

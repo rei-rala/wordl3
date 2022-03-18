@@ -4,7 +4,7 @@ import { Popups } from "../../contexts/PopupsContext";
 import { Loading, Indicators } from "../";
 import { Frame, Keyboard } from "./";
 
-import { findWordInDictionary, validateString } from "../../utils";
+import { findWordInDictionary, strToObjParser, validateString } from "../../utils";
 import { postGuess } from "../../services";
 
 import { CoincidenceType, GameOver } from "../../types";
@@ -29,38 +29,29 @@ const Game: React.FC = () => {
     message: "Unexpected error"
   });
 
-  const submitGuesses = async (guesses: string | string[]) => {
-    let clientDate: any
-
-    try {
-      clientDate = new Date(localStorage.getItem("wordDate") || '');
-      clientDate = isNaN(clientDate.valueOf()) ? new Date('2000-01-01') : clientDate;
-    } catch {
-      clientDate = new Date('2000-01-01');
-    }
+  const submitGuesses = async (guesses: string[]) => {
 
     Promise.resolve()
       .then(() => setIsLoading(true))
-      .then(() => postGuess(guesses, clientDate))
-      .catch((err) => setError(err))
+      .then(() => postGuess(guesses, localStorage.getItem("clientDate") as string))
       .then(({ wordLength, maxTries, coincidences, guesses, definition, wordIndex, wordDate }) => {
-        setCurrentGuess("");
-        setMaxTries(maxTries);
-        setGuesses(guesses);
-        setCoincidences(coincidences);
-        setWordLength(wordLength);
-        setWordIndex(wordIndex)
-
-        localStorage.setItem("guesses", JSON.stringify(guesses));
-        localStorage.setItem('wordDate', JSON.stringify(wordDate));
-
-        typeof definition.win === "boolean" &&
+          setCurrentGuess("");
+          setMaxTries(maxTries);
+          setGuesses(guesses);
+          setCoincidences(coincidences);
+          setWordLength(wordLength);
+          setWordIndex(wordIndex)
+          
+          localStorage.setItem("guesses", JSON.stringify(guesses));
+          localStorage.setItem('clientDate', wordDate);
+          
+          typeof definition?.win === "boolean" &&
           setGameOver({
-            state: true,
-            message: definition.win ? `Has ganado! 🎉` : "No has podido ganar esta vez! 😔",
-            definition,
-          });
-      })
+              state: true,
+              message: definition.win ? `Has ganado! 🎉` : "No has podido ganar esta vez! 😔",
+              definition,
+            });
+        })
       .catch(setError);
   };
 
@@ -117,7 +108,7 @@ const Game: React.FC = () => {
 
   useEffect(() => {
     new Promise((res) => res(setIsLoading(true)))
-      .then(() => submitGuesses(localStorage.getItem("guesses") || "[]"))
+      .then(() => submitGuesses(strToObjParser(localStorage.getItem("guesses"), [])))
       .then(() => setIsLoading(false));
   }, []);
 
