@@ -29,6 +29,7 @@ export type StyleByCoincidence = {
 export interface IIndicatorsComponentProps {
   gameOver: GameOver,
   wordIndex: number,
+  nextDay: number | null,
   error: {
     foundError: boolean,
     message: string
@@ -93,6 +94,7 @@ export interface IGameApiResponse extends Status {
   definition?: { word: string, meaning?: string, win?: boolean };
   wordDate: string;
   wordIndex: number;
+  nextDay: number | null;
 }
 
 export interface ISocialMediaProps {

@@ -1,5 +1,5 @@
 import { States } from "../types"
-import DICTIONARY from "../resources/constants"
+import { DICTIONARY } from "../resources/dictionary"
 
 export const KEYBOARD_ROWS = [
     "qwertyuiop".toUpperCase().split(''),
@@ -30,22 +30,22 @@ export const strToObjParser: (jsonString: string | null, alternative: any) => ty
     let lsItem: typeof alternative
 
     try {
-        lsItem = JSON.parse(jsonString!) 
+        lsItem = JSON.parse(jsonString!)
 
         if (typeof lsItem !== typeof alternative) {
             throw 'Types does not match'
         }
     } catch (error) {
         // Error @ parsing the string
-        // console.log(error)
+        //console.log(error)
         lsItem = alternative
     }
 
     return lsItem
 }
 
-export const randomArrayItemIndex = (arr: any[]) => {
-    return Math.floor(Math.random() * arr.length);
+export const getRandomInt = (max: number, min = 0) => {
+    return Math.floor(Math.random() * (max - min) + min);
 }
 
 export const getCoincidences = (strArray: string[] = [], target: string) => {
@@ -95,8 +95,8 @@ export const validateString = async (guess: string, length: number, regex: RegEx
     return { error, guess };
 };
 
-export const timeStampToDate = (timestamp: number) => {
-    const date = new Date(timestamp);
+export const timeStampToDate = (dateAlike: number | Date) => {
+    const date = new Date(dateAlike);
 
     if (date.valueOf() === 0 || isNaN(date.valueOf())) {
         return
@@ -115,6 +115,11 @@ export const timeStampToDate = (timestamp: number) => {
     const HOUR = ('0' + hourNumber).slice(-2);
     const MINUTES = ('0' + minuteNumber).slice(-2);
     const SECONDS = ('0' + secondNumber).slice(-2);
+    const FULL_OBJECT = date
+    const NO_HOURS_OBJECT = new Date(date.getFullYear(), date.getMonth(), date.getDate())
+    const FULL_TIMESTAMP = +date.valueOf()
+    const NO_HOURS_TIMESTAMP = NO_HOURS_OBJECT.valueOf()
+
 
     return {
         FULL: `${YEAR}-${MONTH}-${DAY} ${HOUR}:${MINUTES}:${SECONDS}`,
@@ -127,5 +132,9 @@ export const timeStampToDate = (timestamp: number) => {
         HOUR,
         MINUTES,
         SECONDS,
+        FULL_OBJECT,
+        NO_HOURS_OBJECT,
+        NO_HOURS_TIMESTAMP,
+        FULL_TIMESTAMP,
     }
 }

@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { IIndicatorsComponentProps } from "../../types";
 import THEME from "../../styles";
-import { userGame } from "../../resources/gameConfig";
 import { timeStampToDate } from "../../utils";
 
 const Indicators: React.FC<IIndicatorsComponentProps> = ({
   gameOver,
   error,
   wordIndex,
+  nextDay
 }) => {
   const [nextWordInterval, setNextWordInterval] = useState<number | null>(null);
   const [divOpen, setDivOpen] = useState(false);
@@ -27,16 +27,16 @@ const Indicators: React.FC<IIndicatorsComponentProps> = ({
   useEffect(() => {
     let nextWordIntervalRefresh: NodeJS.Timeout | undefined;
 
-    if (gameOver.definition && userGame.nextDay) {
+    if (gameOver.definition && nextDay) {
       nextWordIntervalRefresh = setInterval(() => {
-        setNextWordInterval(userGame.nextDay - Date.now().valueOf());
+        setNextWordInterval(nextDay - Date.now().valueOf());
       }, 1000);
     }
 
     return () => {
       nextWordIntervalRefresh && clearInterval(nextWordIntervalRefresh);
     };
-  }, [gameOver]);
+  }, [gameOver, nextDay]);
 
   useEffect(() => {
     setDivOpen(gameOver.state || error.foundError);
