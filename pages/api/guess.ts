@@ -23,7 +23,7 @@ const handler = (req: NextApiRequest, res: NextApiResponse<IGameApiResponse | St
 
         const coincidences: CoincidenceType[] = wordDateServer !== clientDate ? [] : getCoincidences(parsedGuesses, game.word);
 
-        let definition: Definition;
+        let definition: Definition | undefined;
         let winCondition: boolean
         let loseCondition: boolean
 
@@ -35,7 +35,7 @@ const handler = (req: NextApiRequest, res: NextApiResponse<IGameApiResponse | St
                 definition = {
                     win: winCondition,
                     word: game.word,
-                    meaning: '', // TODO: fetch word definition (spanish) somewhere 
+                    meaning: '', // TODO: Add meaning by fetching somewhere (spanish)
                 }
             }
         }

@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 
-export type Definition = { word: string, meaning: string, win: boolean } | undefined;
+export type Definition = { word: string, meaning: string, win: boolean };
 export type GameOver = { state: boolean, message: string, definition?: Definition }
 
 export enum States {
@@ -29,6 +29,7 @@ export type StyleByCoincidence = {
 export interface IIndicatorsComponentProps {
   gameOver: GameOver,
   wordIndex: number,
+  nextDay: number | null,
   error: {
     foundError: boolean,
     message: string
@@ -93,6 +94,7 @@ export interface IGameApiResponse extends Status {
   definition?: Definition;
   wordDate: string;
   wordIndex: number;
+  nextDay: number | null;
 }
 
 export interface ISocialMediaProps {

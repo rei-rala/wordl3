@@ -1,4 +1,4 @@
-const DICTIONARY = [
+export const DICTIONARY = [
   "ABABA",
   "ABACA",
   "ABACO",
@@ -10837,4 +10837,4 @@ const DICTIONARY = [
   "ZUZON",
 ];
 
-export default DICTIONARY;
+export const DICT_LENGTH = DICTIONARY.length;

@@ -7,6 +7,8 @@ import { Frame, Keyboard } from "./";
 import { findWordInDictionary, strToObjParser, validateString } from "../../utils";
 import { postGuess } from "../../services";
 
+// debugging
+let renderCount = 0;
 
 const Game: React.FC = () => {
     const { addSignMessage } = useContext(Popups)
@@ -96,6 +98,7 @@ const Game: React.FC = () => {
             }
         }
     };
+    console.log(`Game Render ${renderCount++}`)
 
     const handleKey = (event: KeyboardEvent) => {
         if (gameOver.state)
@@ -110,12 +113,12 @@ const Game: React.FC = () => {
         new Promise((res) => res(setIsLoading(true)))
             .then(() => submitGuesses(strToObjParser(localStorage.getItem("guesses"), [])))
             .then(() => setIsLoading(false));
-    }, []);
+    }, [setIsLoading]);
 
     useEffect(() => {
         guesses.length >= maxTries &&
             setGameOver({ state: true, message: "No has podido ganar esta vez! 😔" });
-    }, [maxTries, guesses]);
+    }, [maxTries, guesses, setGameOver]);
 
     useEffect(() => {
         !isLoading && window.addEventListener("keydown", handleKey);
