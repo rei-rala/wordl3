@@ -36,8 +36,7 @@ export const strToObjParser: (jsonString: string | null, alternative: any) => ty
             throw 'Types does not match'
         }
     } catch (error) {
-        // Error @ parsing the string
-        //console.log(error)
+        // Error @ parsing the string, using provided alternative as return
         lsItem = alternative
     }
 

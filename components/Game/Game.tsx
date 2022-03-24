@@ -7,13 +7,11 @@ import { Frame, Keyboard } from "./";
 import { findWordInDictionary, strToObjParser, validateString } from "../../utils";
 import { postGuess } from "../../services";
 
-// debugging
-let renderCount = 0;
 
 const Game: React.FC = () => {
     const { addSignMessage } = useContext(Popups)
-    const { maxTries, wordLength, coincidences, guesses, currentGuess, wordIndex, isLoading, gameOver, error,
-        setMaxTries, setWordLength, setCoincidences, setGuesses, setCurrentGuess, setWordIndex, setIsLoading, setGameOver, setError } = useContext(GameConditions)
+    const { maxTries, wordLength, coincidences, guesses, currentGuess, wordIndex, isLoading, gameOver, error, nextDay,
+        setMaxTries, setWordLength, setCoincidences, setGuesses, setCurrentGuess, setWordIndex, setIsLoading, setGameOver, setError, setNextDay } = useContext(GameConditions)
 
     /* const [maxTries, setMaxTries] = useState(6);
     const [wordLength, setWordLength] = useState(0);
@@ -36,13 +34,14 @@ const Game: React.FC = () => {
         Promise.resolve()
             .then(() => setIsLoading(true))
             .then(() => postGuess(guesses, localStorage.getItem("clientDate") as string))
-            .then(({ wordLength, maxTries, coincidences, guesses, definition, wordIndex, wordDate }) => {
+            .then(({ wordLength, maxTries, coincidences, guesses, definition, wordIndex, wordDate, nextDay }) => {
                 setCurrentGuess("");
                 setMaxTries(maxTries);
                 setGuesses(guesses);
                 setCoincidences(coincidences);
                 setWordLength(wordLength);
                 setWordIndex(wordIndex)
+                setNextDay(nextDay)
 
                 localStorage.setItem("guesses", JSON.stringify(guesses));
                 localStorage.setItem('clientDate', wordDate);
@@ -98,7 +97,6 @@ const Game: React.FC = () => {
             }
         }
     };
-    console.log(`Game Render ${renderCount++}`)
 
     const handleKey = (event: KeyboardEvent) => {
         if (gameOver.state)
@@ -110,10 +108,12 @@ const Game: React.FC = () => {
     };
 
     useEffect(() => {
-        new Promise((res) => res(setIsLoading(true)))
+        Promise.resolve(setIsLoading(true))
             .then(() => submitGuesses(strToObjParser(localStorage.getItem("guesses"), [])))
             .then(() => setIsLoading(false));
-    }, [setIsLoading]);
+        // TODO: Fix exhaustive dependencies
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     useEffect(() => {
         guesses.length >= maxTries &&
@@ -140,6 +140,7 @@ const Game: React.FC = () => {
                 gameOver={gameOver}
                 error={error}
                 wordIndex={wordIndex}
+                nextDay={nextDay}
             />
             <Keyboard coincidences={coincidences} updateGuess={updateGuess} />
 

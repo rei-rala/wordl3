@@ -25,7 +25,7 @@ const Indicators: React.FC<IIndicatorsComponentProps> = ({
   };
 
   useEffect(() => {
-    let nextWordIntervalRefresh: NodeJS.Timeout | undefined;
+    let nextWordIntervalRefresh: NodeJS.Timeout;
 
     if (gameOver.definition && nextDay) {
       nextWordIntervalRefresh = setInterval(() => {

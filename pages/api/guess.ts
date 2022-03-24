@@ -18,7 +18,9 @@ const handler = (req: NextApiRequest, res: NextApiResponse<IGameApiResponse | St
         const { data } = req.body;
         const { guesses, clientDate } = strToObjParser(data, {});
 
-        const wordDateServer = timeStampToDate(new Date().valueOf())!.DATE
+        const todayServer = new Date()
+        const wordDateServer = timeStampToDate(todayServer)!.DATE
+        const nextDay = new Date(todayServer.getFullYear(), todayServer.getMonth(), todayServer.getDate()+ 1).valueOf()
         const parsedGuesses: string[] = guesses?.slice(0, game.maxTries).map((c: string) => c.slice(0, game.word.length).toUpperCase().padEnd(game.word.length, '?'));
 
         const coincidences: CoincidenceType[] = wordDateServer !== clientDate ? [] : getCoincidences(parsedGuesses, game.word);
@@ -40,7 +42,7 @@ const handler = (req: NextApiRequest, res: NextApiResponse<IGameApiResponse | St
             }
         }
 
-        res.status(200).json({ status: "success", ...userGame, coincidences, guesses: coincidences.length ? parsedGuesses : [], definition, wordDate: wordDateServer });
+        res.status(200).json({ status: "success", ...userGame, coincidences, guesses: coincidences.length ? parsedGuesses : [], definition, wordDate: wordDateServer, nextDay });
         return;
     }
     res.status(400).json({ status: "bad request" });

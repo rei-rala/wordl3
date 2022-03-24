@@ -94,7 +94,7 @@ export interface IGameApiResponse extends Status {
   definition?: Definition;
   wordDate: string;
   wordIndex: number;
-  nextDay: number | null;
+  nextDay: number;
 }
 
 export interface ISocialMediaProps {
