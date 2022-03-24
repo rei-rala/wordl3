@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Popups } from "../../contexts/PopupsContext";
+import { Popups } from "../../contexts";
 
 import THEME from "../../styles";
 

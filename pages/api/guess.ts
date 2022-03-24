@@ -3,7 +3,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { game, userGame } from "../../resources/gameConfig";
 
 import { getCoincidences, strToObjParser, timeStampToDate } from "../../utils";
-import { CoincidenceType, IGameApiResponse, Status } from "../../types";
+import { CoincidenceType, Definition, IGameApiResponse, Status } from "../../types";
 
 export const config = {
     api: {
@@ -23,7 +23,7 @@ const handler = (req: NextApiRequest, res: NextApiResponse<IGameApiResponse | St
 
         const coincidences: CoincidenceType[] = wordDateServer !== clientDate ? [] : getCoincidences(parsedGuesses, game.word);
 
-        let definition: { word: string, meaning?: string, win?: boolean } | undefined;
+        let definition: Definition;
         let winCondition: boolean
         let loseCondition: boolean
 
@@ -35,6 +35,7 @@ const handler = (req: NextApiRequest, res: NextApiResponse<IGameApiResponse | St
                 definition = {
                     win: winCondition,
                     word: game.word,
+                    meaning: '', // TODO: fetch word definition (spanish) somewhere 
                 }
             }
         }

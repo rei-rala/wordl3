@@ -1,8 +1,8 @@
 import { Dispatch, SetStateAction } from "react";
 import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 
-
-export type GameOver = { state: boolean, message?: string, definition?: { win?: boolean, word: string, meaning?: string } }
+export type Definition = { word: string, meaning: string, win: boolean } | undefined;
+export type GameOver = { state: boolean, message: string, definition?: Definition }
 
 export enum States {
   FULL = "FULL",
@@ -90,7 +90,7 @@ export interface IGameApiResponse extends Status {
   maxTries: number;
   guesses: string[];
   coincidences: CoincidenceType[];
-  definition?: { word: string, meaning?: string, win?: boolean };
+  definition?: Definition;
   wordDate: string;
   wordIndex: number;
 }

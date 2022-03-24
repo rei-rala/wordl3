@@ -2,7 +2,7 @@ import React, { useContext, useMemo } from "react";
 import { IFrameComponentProps } from "../../../types";
 import Word from "./Word/Word";
 import THEME from "../../../styles";
-import { Popups } from "../../../contexts/PopupsContext";
+import { Popups } from "../../../contexts";
 
 const Frame: React.FC<IFrameComponentProps> = ({
   maxTries,
