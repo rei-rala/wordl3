@@ -1,15 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleQuestion } from "@fortawesome/free-solid-svg-icons";
 import THEME from "../../../styles";
 
-
-const Gamerules: React.FC = () => {
-  // TODO: Display game rules
-  const TEMPFUNCTION = () => { localStorage.removeItem('guesses')}
-  
+const Gamerules: React.FC<{ toggleShowRules: () => void }> = ({
+  toggleShowRules,
+}) => {
   return (
-    <button onClick={TEMPFUNCTION} aria-label={'Temporalmente resetear intentos. Posteriormente mostrara reglas.'}>
+    <button
+      onClick={toggleShowRules}
+      aria-label={"Muestra las reglas del juego."}
+    >
       <FontAwesomeIcon icon={faCircleQuestion} />
 
       <style jsx>{`

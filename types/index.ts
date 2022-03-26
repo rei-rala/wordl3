@@ -26,24 +26,6 @@ export type StyleByCoincidence = {
   };
 };
 
-export interface IIndicatorsComponentProps {
-  gameOver: GameOver,
-  wordIndex: number,
-  nextDay: number | null,
-  error: {
-    foundError: boolean,
-    message: string
-  }
-}
-
-export interface IFrameComponentProps {
-  wordLength: number;
-  currentGuess: string;
-  guesses: string[];
-  maxTries: number;
-  coincidences: CoincidenceType[];
-}
-
 export interface IGuessComponentProps {
   wordLength: number;
   tryNumber: number;
@@ -65,10 +47,10 @@ export interface IWordComponentProps {
 export interface ILetterComponentProps {
   letter: string;
   letterIndex: number;
-  coincidenceState: keyof typeof States;
-  isLastGuess: boolean;
-  isGuessing: boolean;
-  isLastLetter: boolean;
+  coincidenceState?: keyof typeof States;
+  isLastGuess?: boolean;
+  isGuessing?: boolean;
+  isLastLetter?: boolean;
 }
 
 export interface IKeyboardKeyProps {
@@ -78,7 +60,6 @@ export interface IKeyboardKeyProps {
 }
 
 export interface IKeyboardProps {
-  coincidences: CoincidenceType[],
   updateGuess: (arg0: string) => void,
 }
 

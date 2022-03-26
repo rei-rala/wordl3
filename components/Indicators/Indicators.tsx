@@ -1,20 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { IIndicatorsComponentProps } from "../../types";
+import React, { useContext, useEffect, useState } from "react";
+import { GameConditions } from "../../contexts";
 import THEME from "../../styles";
 import { timeStampToDate } from "../../utils";
 
-const Indicators: React.FC<IIndicatorsComponentProps> = ({
-  gameOver,
-  error,
-  wordIndex,
-  nextDay
-}) => {
+const Indicators: React.FC = () => {
+  const { gameOver, nextDay, error, wordIndex } = useContext(GameConditions);
   const [nextWordInterval, setNextWordInterval] = useState<number | null>(null);
   const [divOpen, setDivOpen] = useState(false);
-  
+
   const closediv = () => setDivOpen(false);
-  const nullifyClickAction = (event: React.SyntheticEvent ) => event.stopPropagation(); 
-  const RAE_Link = gameOver.definition?.word ? `https://dle.rae.es/${gameOver.definition?.word}` : undefined;
+  const nullifyClickAction = (event: React.SyntheticEvent) =>
+    event.stopPropagation();
+  const RAE_Link = gameOver.definition?.word
+    ? `https://dle.rae.es/${gameOver.definition?.word}`
+    : undefined;
 
   const openLink = () => {
     confirm(
@@ -55,28 +54,31 @@ const Indicators: React.FC<IIndicatorsComponentProps> = ({
               {`Palabra: ${gameOver.definition?.word}`}{" "}
               <span>#{wordIndex}</span>
             </>
-          )) ||
-            <> Error! </>
-            }
+          )) || <> Error! </>}
         </legend>
-        
-          {(gameOver.definition?.word && (
-            <>
-                <p>
-                  <span> Buscar definicion en sitio de la RAE </span>
-                  <button onClick={openLink} role='link'>{RAE_Link}</button>
-                </p>
-                <div>
-                    <hr />
-                </div>
-            </>
-          )) ||
-            (error.foundError && <p>{error.message}</p>)}
 
-          {nextWordInterval &&  <span>Proxima palabra en <fieldset>{timeStampToDate(nextWordInterval)!.TIME}</fieldset></span>}
-        <i>
-          Toca fuera del cuadro para cerrarlo.
-        </i>
+        {(gameOver.definition?.word && (
+          <>
+            <p>
+              <span> Buscar definicion en sitio de la RAE </span>
+              <button onClick={openLink} role="link">
+                {RAE_Link}
+              </button>
+            </p>
+            <div>
+              <hr />
+            </div>
+          </>
+        )) ||
+          (error.foundError && <p>{error.message}</p>)}
+
+        {nextWordInterval && (
+          <span>
+            Proxima palabra en{" "}
+            <fieldset>{timeStampToDate(nextWordInterval)!.TIME}</fieldset>
+          </span>
+        )}
+        <i>Toca fuera del cuadro para cerrarlo.</i>
       </fieldset>
 
       <style jsx>{`
@@ -106,14 +108,19 @@ const Indicators: React.FC<IIndicatorsComponentProps> = ({
         section h2 {
           font-size: 1.5rem;
           font-weigth: bold;
-          color: ${gameOver.definition?.win ? THEME.COLORS.SUCCESS :THEME.COLORS.ALERT};
+          color: ${gameOver.definition?.win
+            ? THEME.COLORS.SUCCESS
+            : THEME.COLORS.ALERT};
         }
 
         section fieldset,
         section legend {
           display: flex;
           background-color: ${THEME.COLORS.THEME};
-          border: 2px outset ${gameOver.definition?.win ? THEME.COLORS.SUCCESS :THEME.COLORS.ALERT};
+          border: 2px outset
+            ${gameOver.definition?.win
+              ? THEME.COLORS.SUCCESS
+              : THEME.COLORS.ALERT};
           border-radius: 10px;
           padding: 0.5rem 1rem;
           min-width: 10rem;
@@ -122,7 +129,9 @@ const Indicators: React.FC<IIndicatorsComponentProps> = ({
         section legend {
           justify-content: space-around;
           margin: auto;
-          color: ${gameOver.definition?.win ? THEME.COLORS.SUCCESS :THEME.COLORS.ALERT};
+          color: ${gameOver.definition?.win
+            ? THEME.COLORS.SUCCESS
+            : THEME.COLORS.ALERT};
           padding: 0.5rem 0.75rem;
           font-size: 1.2rem;
         }

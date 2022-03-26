@@ -1,17 +1,11 @@
 import React, { useContext, useMemo } from "react";
-import { IFrameComponentProps } from "../../../types";
 import Word from "./Word/Word";
 import THEME from "../../../styles";
-import { Popups } from "../../../contexts";
+import { GameConditions, Popups } from "../../../contexts";
 
-const Frame: React.FC<IFrameComponentProps> = ({
-  maxTries,
-  wordLength,
-  guesses,
-  currentGuess,
-  coincidences,
-}) => {
+const Frame: React.FC = () => {
   const { signMessages } = useContext(Popups);
+  const { maxTries, coincidences, guesses, wordLength, currentGuess } = useContext(GameConditions);
   const isWrongInput = useMemo(() => signMessages.length !== 0, [signMessages]);
 
   return (

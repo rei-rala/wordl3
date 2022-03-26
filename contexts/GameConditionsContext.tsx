@@ -32,6 +32,8 @@ type GameConditionsContextType = {
     setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
     nextDay: number;
     setNextDay: React.Dispatch<React.SetStateAction<number>>,
+    showRules: boolean,
+    toggleShowRules: () => void
 };
 
 
@@ -46,6 +48,7 @@ export const GameConditions = createContext<GameConditionsContextType>({
     error: { foundError: false, message: "Unexpected error" },
     isLoading: false,
     nextDay: 0,
+    showRules: false,
     setMaxTries: () => { },
     setWordLength: () => { },
     setCoincidences: () => { },
@@ -56,6 +59,7 @@ export const GameConditions = createContext<GameConditionsContextType>({
     setError: () => { },
     setIsLoading: () => { },
     setNextDay: () => { },
+    toggleShowRules: () => { },
 });
 
 export const GameConditionsContext = (props: any) => {
@@ -73,6 +77,9 @@ export const GameConditionsContext = (props: any) => {
     const [isLoading, setIsLoading] = useState(false);
     const [nextDay, setNextDay] = useState(0)
 
+    const [showRules, setShowRules] = useState(false);
+    const toggleShowRules = () => setShowRules(!showRules);
+
     return (
         <GameConditions.Provider value={{
             maxTries, setMaxTries,
@@ -84,7 +91,8 @@ export const GameConditionsContext = (props: any) => {
             gameOver, setGameOver,
             error, setError,
             isLoading, setIsLoading,
-            nextDay, setNextDay
+            nextDay, setNextDay,
+            showRules, toggleShowRules
         }}>
             {props.children}
         </GameConditions.Provider>

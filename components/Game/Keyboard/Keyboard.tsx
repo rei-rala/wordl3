@@ -1,42 +1,50 @@
-import React, {  useMemo } from "react";
+import React, { useContext, useMemo } from "react";
 import THEME from "../../../styles";
 import { KEYBOARD_ROWS } from "../../../utils";
-import { CoincidenceStateType, CoincidenceType, IKeyboardProps, States } from "../../../types";
+import {
+  CoincidenceStateType,
+  CoincidenceType,
+  IKeyboardProps,
+  States,
+} from "../../../types";
 import KeyboardKey from "./KeyboardKey/KeyboardKey";
+import { GameConditions } from "../../../contexts";
 
 type CoincidenceVariantType = { [key: string]: CoincidenceStateType };
 
 const updateCoincidences = (lastCoincidences: CoincidenceType[]) => {
-    const coincidenceValues = {
-      [States.FULL]: 3,
-      [States.PARTIAL]: 2,
-      [States.NONE]: 1,
-      [States.EMPTY]: 0,
-    };
+  const coincidenceValues = {
+    [States.FULL]: 3,
+    [States.PARTIAL]: 2,
+    [States.NONE]: 1,
+    [States.EMPTY]: 0,
+  };
 
-    let temp: CoincidenceVariantType = {};
-    
-    lastCoincidences.forEach(coincidence => {
-      for (let letterIndex in coincidence) {
-        let c = coincidence[letterIndex];
-        
-        if (c.letter in temp) {
-          temp[c.letter] =
-            coincidenceValues[temp[c.letter]] <
-            coincidenceValues[c.coincidence]
-              ? c.coincidence
-              : temp[c.letter];
-        } else {
-          temp[c.letter] = c.coincidence;
-        }
+  let temp: CoincidenceVariantType = {};
+
+  lastCoincidences.forEach((coincidence) => {
+    for (let letterIndex in coincidence) {
+      let c = coincidence[letterIndex];
+
+      if (c.letter in temp) {
+        temp[c.letter] =
+          coincidenceValues[temp[c.letter]] < coincidenceValues[c.coincidence]
+            ? c.coincidence
+            : temp[c.letter];
+      } else {
+        temp[c.letter] = c.coincidence;
       }
-    })
-    return temp;
-}
+    }
+  });
+  return temp;
+};
 
-
-const Keyboard: React.FC<IKeyboardProps> = ({ coincidences, updateGuess }) => {
-  const bestCoincidences = useMemo(()=>  updateCoincidences(coincidences), [coincidences]);
+const Keyboard: React.FC<IKeyboardProps> = ({ updateGuess }) => {
+  const { coincidences } = useContext(GameConditions);
+  const bestCoincidences = useMemo(
+    () => updateCoincidences(coincidences),
+    [coincidences]
+  );
 
   return (
     <section>
@@ -71,7 +79,7 @@ const Keyboard: React.FC<IKeyboardProps> = ({ coincidences, updateGuess }) => {
           display: flex;
           flex-flow: row nowrap;
           justify-content: space-evenly;
-          
+
           height: 26%;
         }
 

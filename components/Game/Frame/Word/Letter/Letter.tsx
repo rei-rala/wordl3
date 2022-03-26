@@ -1,5 +1,8 @@
 import React from "react";
-import { ILetterComponentProps, StyleByCoincidence } from "../../../../../types";
+import {
+  ILetterComponentProps,
+  StyleByCoincidence,
+} from "../../../../../types";
 import THEME from "../../../../../styles";
 
 const cStyle: StyleByCoincidence = {
@@ -19,48 +22,55 @@ const cStyle: StyleByCoincidence = {
 
 const Letter: React.FC<ILetterComponentProps> = ({
   letter,
-  isLastGuess,
   letterIndex,
-  isLastLetter,
-  coincidenceState,
-  isGuessing,
+  coincidenceState = "EMPTY",
+  isLastGuess = false,
+  isGuessing = false,
+  isLastLetter = false,
 }) => {
-
-  
   return (
     <div className={isGuessing ? "GUESS" : coincidenceState}>
       <span>{letter === " " ? "\u200C" : letter}</span>
       <style jsx>{`
         div {
           flex: 1;
-          display:grid;
+          display: grid;
           place-items: center;
 
           height: 100%;
           border: 2px inset ${THEME.COLORS.BORDER};
           border-radius: 0.15rem;
-          
+
           color: ${cStyle.color.FULL};
-          background: ${cStyle.backgroundColor.EMPTY}; 
+          background: ${cStyle.backgroundColor.EMPTY};
         }
 
         div span {
           display: grid;
           place-items: center;
-          transition: transform ${isLastGuess ? THEME.ANIMATIONS.DURATION : ''};
-          transition-delay: ${isLastGuess ? `calc(${THEME.ANIMATIONS.DURATION} * ${letterIndex} / 3)` : ''};
+          transition: transform ${isLastGuess ? THEME.ANIMATIONS.DURATION : ""};
+          transition-delay: ${isLastGuess
+            ? `calc(${THEME.ANIMATIONS.DURATION} * ${letterIndex} / 3)`
+            : ""};
         }
-        
+
         .GUESS {
           color: ${cStyle.color.EMPTY};
           animation: ${isLastLetter ? THEME.ANIMATIONS.LETTER_POP : ""};
         }
 
-        .NONE, .PARTIAL, .FULL {
+        .NONE,
+        .PARTIAL,
+        .FULL {
           transform: rotateX(-180deg);
-          background: ${cStyle.backgroundColor[coincidenceState] ?? cStyle.backgroundColor.EMPTY};
-          transition: ${isLastGuess ? `transform ${THEME.ANIMATIONS.DURATION}, background ${THEME.ANIMATIONS.DURATION} cubic-bezier(1,-2,0,3), color ${THEME.ANIMATIONS.DURATION} cubic-bezier(1,-2,0,3)` : ''};
-          transition-delay: ${isLastGuess ? `calc(${THEME.ANIMATIONS.DURATION} * ${letterIndex} / 3)` : ''};
+          background: ${cStyle.backgroundColor[coincidenceState] ??
+          cStyle.backgroundColor.EMPTY};
+          transition: ${isLastGuess
+            ? `transform ${THEME.ANIMATIONS.DURATION}, background ${THEME.ANIMATIONS.DURATION} cubic-bezier(1,-2,0,3), color ${THEME.ANIMATIONS.DURATION} cubic-bezier(1,-2,0,3)`
+            : ""};
+          transition-delay: ${isLastGuess
+            ? `calc(${THEME.ANIMATIONS.DURATION} * ${letterIndex} / 3)`
+            : ""};
         }
 
         :is(.NONE, .PARTIAL, .FULL) > span {
@@ -73,7 +83,7 @@ const Letter: React.FC<ILetterComponentProps> = ({
             max-width: ${THEME.SIZES.LETTER_SQUARE};
           }
         }
-        
+
         @media screen and (min-height: 700px) and (min-width: 500px) {
           div {
             aspect-ratio: 1;
