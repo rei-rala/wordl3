@@ -1,9 +1,9 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 import { faLink } from '@fortawesome/free-solid-svg-icons';
-import THEME from "../../../styles";
-import { ISocialMediaProps } from "../../../types";
+
+import { ISocialMediaProps } from "types";
+import THEME from "styles";
 
 const SocialMediaLink: React.FC<ISocialMediaProps> = ({ link, faIcon }) => {
   const socialMediaName = link.split('.')[1] ?? 'red social';

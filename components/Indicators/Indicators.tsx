@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
-import { GameConditions } from "../../contexts";
-import THEME from "../../styles";
-import { timeStampToDate } from "../../utils";
+import { GameConditions } from "contexts";
+import THEME from "styles";
+import { timeStampToDate } from "utils";
 
 const Indicators: React.FC = () => {
   const { gameOver, nextDay, error, wordIndex } = useContext(GameConditions);

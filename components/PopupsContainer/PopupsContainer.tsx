@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
-import { Popups } from "../../contexts";
+import { Popups } from "contexts";
 
-import THEME from "../../styles";
+import THEME from "styles";
 
 const Popup: React.FC<{ message: string }> = ({ message }) => {
   return (

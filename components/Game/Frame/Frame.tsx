@@ -1,7 +1,7 @@
 import React, { useContext, useMemo } from "react";
-import Word from "./Word/Word";
-import THEME from "../../../styles";
-import { GameConditions, Popups } from "../../../contexts";
+import { GameConditions, Popups } from "contexts";
+import { Word } from "components";
+import THEME from "styles";
 
 const Frame: React.FC = () => {
   const { signMessages } = useContext(Popups);

@@ -1,7 +1,7 @@
 import React from "react";
-import Letter from "./Letter/Letter";
-import { IWordComponentProps, States } from "../../../../types";
-import THEME from "../../../../styles";
+import { Letter } from "components";
+import { IWordComponentProps, States } from "types";
+import THEME from "styles";
 
 const Word: React.FC<IWordComponentProps> = ({
   word,

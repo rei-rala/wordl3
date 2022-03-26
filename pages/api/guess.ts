@@ -1,9 +1,9 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
-import { game, userGame } from "../../resources/gameConfig";
+import { game, userGame } from "resources/gameConfig";
 
-import { getCoincidences, strToObjParser, timeStampToDate } from "../../utils";
-import { CoincidenceType, Definition, IGameApiResponse, Status } from "../../types";
+import { getCoincidences, strToObjParser, timeStampToDate } from "utils";
+import { CoincidenceType, Definition, IGameApiResponse, Status } from "types";
 
 export const config = {
     api: {

@@ -2,8 +2,8 @@ import React from "react";
 import {
   ILetterComponentProps,
   StyleByCoincidence,
-} from "../../../../../types";
-import THEME from "../../../../../styles";
+} from "types";
+import THEME from "styles";
 
 const cStyle: StyleByCoincidence = {
   backgroundColor: {

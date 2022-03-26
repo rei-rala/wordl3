@@ -1,10 +1,10 @@
 import React from "react";
 
-import THEME from "../../../styles";
-import useDarkTheme from "../../../hooks/useDarkTheme";
+import useDarkTheme from "hooks/useDarkTheme";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
+import THEME from "styles";
 
 
 const Menu: React.FC = () => {

@@ -1,8 +1,8 @@
 import React from "react";
 
 import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
-import THEME from "../../styles";
-import SocialMediaLink from "./SocialMediaLink/SocialMediaLink";
+import { SocialMediaLink } from "components";
+import THEME from "styles";
 
 const Footer: React.FC = () => {
   return (

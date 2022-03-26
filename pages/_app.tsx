@@ -1,6 +1,6 @@
-import '../styles/globals.css'
+import 'styles/globals.css'
 import type { AppProps } from 'next/app'
-import { GameConditionsContext, PopupsContext } from '../contexts'
+import { GameConditionsContext, PopupsContext } from 'contexts'
 
 function MyApp({ Component, pageProps }: AppProps) {
     return (

@@ -3,7 +3,7 @@ import react, {
   useEffect,
   createContext,
 } from "react";
-import THEME from "../styles";
+import THEME from "styles";
 
 class Popup {
   static id = 0;

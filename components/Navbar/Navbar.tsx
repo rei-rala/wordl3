@@ -1,11 +1,10 @@
 import React, { useContext } from "react";
-import { GameConditions } from "../../contexts";
-import THEME from "../../styles";
-import Gamerules from "./Gamerules/Gamerules";
-import Menu from "./Menu/Menu";
+import { GameConditions } from "contexts";
+import THEME from "styles";
+import { Gamerules, Menu } from "components";
 
 const Navbar: React.FC = () => {
-  const {toggleShowRules} = useContext(GameConditions)
+  const { toggleShowRules } = useContext(GameConditions);
 
   return (
     <div>

@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
-import { GameConditions } from "../../../../contexts";
-import THEME from "../../../../styles";
-import Letter from "../../../Game/Frame/Word/Letter/Letter";
+import { GameConditions } from "contexts";
+import THEME from "styles";
+import { Letter } from "components";
 
 const Rules: React.FC = () => {
   const { showRules, maxTries, wordLength } = useContext(GameConditions);
@@ -129,7 +129,6 @@ const Rules: React.FC = () => {
           gap: 0.5rem;
           overflow: hidden;
         }
-
       `}</style>
     </section>
   );

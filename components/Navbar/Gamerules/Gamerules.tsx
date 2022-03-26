@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleQuestion } from "@fortawesome/free-solid-svg-icons";
-import THEME from "../../../styles";
+import THEME from "styles";
 
 const Gamerules: React.FC<{ toggleShowRules: () => void }> = ({
   toggleShowRules,

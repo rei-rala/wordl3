@@ -1,5 +1,5 @@
-import { States } from "../types"
-import { DICTIONARY } from "../resources/dictionary"
+import { States } from "types"
+import { DICTIONARY } from "resources/dictionary"
 
 export const KEYBOARD_ROWS = [
     "qwertyuiop".toUpperCase().split(''),

@@ -1,14 +1,14 @@
 import React, { useContext, useMemo } from "react";
-import THEME from "../../../styles";
-import { KEYBOARD_ROWS } from "../../../utils";
+import { GameConditions } from "contexts";
+import { KeyboardKey } from "components";
+import { KEYBOARD_ROWS } from "utils";
 import {
   CoincidenceStateType,
   CoincidenceType,
   IKeyboardProps,
   States,
-} from "../../../types";
-import KeyboardKey from "./KeyboardKey/KeyboardKey";
-import { GameConditions } from "../../../contexts";
+} from "types";
+import THEME from "styles";
 
 type CoincidenceVariantType = { [key: string]: CoincidenceStateType };
 

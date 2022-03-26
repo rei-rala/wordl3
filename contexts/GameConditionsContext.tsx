@@ -2,7 +2,7 @@ import react, {
     useState,
     createContext,
 } from "react";
-import { CoincidenceType, GameOver } from "../types";
+import { CoincidenceType, GameOver } from "types";
 
 
 type GameConditionsContextType = {

@@ -1,5 +1,5 @@
 import React from "react";
-import THEME from "../../styles";
+import THEME from "styles";
 
 const Loading: React.FC = () => {
   return (

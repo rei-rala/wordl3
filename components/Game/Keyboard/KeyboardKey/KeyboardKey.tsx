@@ -3,8 +3,8 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane, faDeleteLeft } from "@fortawesome/free-solid-svg-icons";
 
-import THEME from "../../../../styles";
-import { IKeyboardKeyProps, CoincidenceStateType, States } from "../../../../types";
+import THEME from "styles";
+import { IKeyboardKeyProps, CoincidenceStateType, States } from "types";
 
 const getBkgColor = (state: CoincidenceStateType) => {
   return (

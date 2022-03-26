@@ -1,16 +1,14 @@
 import React, { useEffect, useContext } from "react";
-import { Popups, GameConditions } from "../../contexts";
-
-import { Loading, Indicators } from "../";
-import { Frame, Keyboard } from "./";
+import { Popups, GameConditions } from "contexts";
+import { Rules, Loading, Indicators, Frame, Keyboard } from "components";
 
 import {
   findWordInDictionary,
   strToObjParser,
   validateString,
-} from "../../utils";
-import { postGuess } from "../../services";
-import Rules from "../Navbar/Gamerules/Rules/Rules";
+} from "utils";
+import { postGuess } from "services";
+
 
 const Game: React.FC = () => {
   const { addSignMessage } = useContext(Popups);
